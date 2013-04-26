@@ -260,6 +260,13 @@ typedef void (^HideComplete)(void);
     self.aboutButton.labelView.text = @"О проекте";
     self.aboutButton.iconNormal = [UIImage imageNamed:@"tab-about"];
     self.aboutButton.iconSelected = [UIImage imageNamed:@"tab-about_selected"];
+    
+    // создаем aboutViewController
+    if (self.aboutViewController == nil) {
+        self.aboutViewController = [[UIStoryboard storyboardWithName:@"UI" bundle:nil] instantiateViewControllerWithIdentifier:@"AboutViewController"];
+        self.aboutViewController.delegate = self;
+        [self.aboutViewController.view setClipsToBounds:YES];
+    }
 
     // проверка доступности интернета
     if ([self.reachability currentReachabilityStatus] == NotReachable) {
@@ -289,9 +296,9 @@ typedef void (^HideComplete)(void);
     if (self.currentController != self.myBeardViewController) {
         self.myBeardViewController = nil;
     }
-    if (self.currentController != self.aboutViewController) {
-        self.aboutViewController = nil;
-    }
+//    if (self.currentController != self.aboutViewController) {
+//        self.aboutViewController = nil;
+//    }
     if (self.currentController != self.settingsViewController) {
         self.settingsViewController = nil;
     }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C025627170DD87A006E0864 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C025626170DD87A006E0864 /* AboutViewController.m */; };
+		2C0474BE172B45CD00419AC8 /* about in Resources */ = {isa = PBXBuildFile; fileRef = 2C0474BD172B45CD00419AC8 /* about */; };
 		2C12CE5017031C97008B637A /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C12CE4F17031C97008B637A /* AuthViewController.m */; };
 		2C12CE57170326FE008B637A /* auth-button_ok.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C12CE51170326FE008B637A /* auth-button_ok.png */; };
 		2C12CE58170326FE008B637A /* auth-button_ok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C12CE52170326FE008B637A /* auth-button_ok@2x.png */; };
@@ -218,6 +219,7 @@
 /* Begin PBXFileReference section */
 		2C025625170DD87A006E0864 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		2C025626170DD87A006E0864 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		2C0474BD172B45CD00419AC8 /* about */ = {isa = PBXFileReference; lastKnownFileType = folder; path = about; sourceTree = "<group>"; };
 		2C12CE4E17031C97008B637A /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthViewController.h; sourceTree = "<group>"; };
 		2C12CE4F17031C97008B637A /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthViewController.m; sourceTree = "<group>"; };
 		2C12CE51170326FE008B637A /* auth-button_ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "auth-button_ok.png"; sourceTree = "<group>"; };
@@ -798,6 +800,7 @@
 		2C87C6D416F752940090F697 /* Skoda */ = {
 			isa = PBXGroup;
 			children = (
+				2C0474BD172B45CD00419AC8 /* about */,
 				2C5A0CC4172014A700DE1D4E /* GAI */,
 				2C92A478171E8E9F00A12942 /* Confirm */,
 				2C6A5BBC1709921E00A69935 /* MGInstagram */,
@@ -1219,6 +1222,7 @@
 				2C8C51E8171EC1520047AA2E /* tab-login_selected@2x.png in Resources */,
 				2C5A0CE117215C5700DE1D4E /* camera-thumb.png in Resources */,
 				2C5A0CE217215C5700DE1D4E /* camera-thumb@2x.png in Resources */,
+				2C0474BE172B45CD00419AC8 /* about in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1363,7 +1367,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: THE DIRECTORS LLC   (3W836ABFFT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dmitry Kurteev (9H363NDM82)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1371,7 +1375,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "10EA2D9E-1F68-4095-BC06-27AACE7D1ED5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E8BF5457-39CC-4C56-BEEC-5E85412D0206";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

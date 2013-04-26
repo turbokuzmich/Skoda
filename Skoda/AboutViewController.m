@@ -47,7 +47,12 @@
     
     [self.webView setAlpha:0];
     [self.activityIndicator startAnimating];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:PageAboutUrl]]];
+//    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:PageAboutUrl]]];
+    
+    NSURL *courseIndex = [NSURL fileURLWithPath:[[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"about"] stringByAppendingPathComponent:@"about.html"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:courseIndex];
+    
+    [self.webView loadRequest:request];
     
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navigateTop)];
     [[self.titleLabel superview] addGestureRecognizer:tapRecognizer];
