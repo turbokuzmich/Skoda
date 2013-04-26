@@ -98,6 +98,11 @@ static int const ListCollectionViewUpperRefreshHeight = 100;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)reloadData
+{
+    [super reloadData];
+}
+
 @end
 
 @implementation ListNewCollectionView (Private)
@@ -149,12 +154,10 @@ static int const ListCollectionViewUpperRefreshHeight = 100;
     
     if (_currentCell && ![_currentCell isEqual:clickedCell]) {
         [_currentCell setState:ListNewViewCellStateNormal];
-        [_currentCell redrawPolygon];
     }
     if (clickedCell) {
         _currentCell = clickedCell;
         [_currentCell setState:ListNewViewCellStateHover];
-        [_currentCell redrawPolygon];
     }
 }
 
@@ -162,7 +165,6 @@ static int const ListCollectionViewUpperRefreshHeight = 100;
 {
     if (_currentCell) {
         [_currentCell setState:ListNewViewCellStateNormal];
-        [_currentCell performSelector:@selector(redrawPolygon) withObject:_currentCell afterDelay:0.1];
         
         _currentCell = nil;
     }
@@ -173,7 +175,6 @@ static int const ListCollectionViewUpperRefreshHeight = 100;
     [self.cellDelegate cellClicked:_currentCell];
     
     [_currentCell setState:ListNewViewCellStateNormal];
-    [_currentCell redrawPolygon];
     
     _currentCell = nil;
 }

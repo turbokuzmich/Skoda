@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Дмитрий Куртеев. All rights reserved.
 //
 
+#import "api.h"
+#import "Reachability.h"
 #import "TabButton.h"
 #import "PersonManager.h"
 #import "PersonModel.h"
@@ -41,6 +43,8 @@
 
 @property (weak, nonatomic) UIViewController *currentController;
 @property (strong, nonatomic) NSString *currentTab;
+
+@property (strong, nonatomic) Reachability *reachability;
 
 - (IBAction)listTabClicked:(id)sender;
 - (IBAction)list13TabClicked:(id)sender;

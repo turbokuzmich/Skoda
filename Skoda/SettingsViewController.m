@@ -23,7 +23,6 @@
 - (void)keyboardWillShow:(NSNotification *)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;
 - (void)displayUserInfo;
-- (void)titleClicked:(UITapGestureRecognizer *)recognizer;
 
 @end
 
@@ -102,6 +101,11 @@
     }];
 }
 
+- (void)navigateTop
+{
+    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+}
+
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -135,6 +139,9 @@
 {
     [super viewDidLoad];
     
+    // gai
+    self.trackedViewName = @"Настройки";
+    
     self.titleLabel.font = [UIFont fontWithName:@"Skoda Pro" size:20.0];
     
     // красим в полоски
@@ -152,7 +159,7 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [self.view addGestureRecognizer:tap];
     
-    UITapGestureRecognizer *titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleClicked:)];
+    UITapGestureRecognizer *titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navigateTop)];
     [[self.titleLabel superview] addGestureRecognizer:titleTap];
 }
 
@@ -290,11 +297,6 @@
     self.sexBox.value = [userInfo objectForKey:@"sex"];
     self.ageField.text = age == 0 ? @"" : [NSString stringWithFormat:@"%d", age];
     [self.buyerCheckbox setSelected:(carOwner == 0 ? NO : YES)];
-}
-
-- (void)titleClicked:(UITapGestureRecognizer *)recognizer
-{
-    [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 
 @end

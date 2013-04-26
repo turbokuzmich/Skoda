@@ -66,6 +66,16 @@
 		2C484D32171BEF8500BC59B2 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C484D31171BEF8500BC59B2 /* icon@2x.png */; };
 		2C484D34171D88A500BC59B2 /* loading-badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C484D33171D88A500BC59B2 /* loading-badge@2x.png */; };
 		2C484D36171D89A700BC59B2 /* loading-badge.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C484D35171D89A700BC59B2 /* loading-badge.png */; };
+		2C5A0CC3171FF27600DE1D4E /* HudView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5A0CC2171FF27600DE1D4E /* HudView.m */; };
+		2C5A0CCC1720153300DE1D4E /* libGoogleAnalytics_debug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5A0CCA1720153300DE1D4E /* libGoogleAnalytics_debug.a */; };
+		2C5A0CCD1720153400DE1D4E /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5A0CCB1720153300DE1D4E /* libGoogleAnalytics.a */; };
+		2C5A0CCF1720156900DE1D4E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5A0CCE1720156900DE1D4E /* CoreData.framework */; };
+		2C5A0CD81720502900DE1D4E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5A0CD71720502900DE1D4E /* CoreTelephony.framework */; };
+		2C5A0CDA1720504200DE1D4E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5A0CD91720504200DE1D4E /* MobileCoreServices.framework */; };
+		2C5A0CDC1720505E00DE1D4E /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5A0CDB1720505D00DE1D4E /* AdSupport.framework */; };
+		2C5A0CDE1721424500DE1D4E /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5A0CDD1721424500DE1D4E /* MobileAppTracker.framework */; };
+		2C5A0CE117215C5700DE1D4E /* camera-thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C5A0CDF17215C5700DE1D4E /* camera-thumb.png */; };
+		2C5A0CE217215C5700DE1D4E /* camera-thumb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C5A0CE017215C5700DE1D4E /* camera-thumb@2x.png */; };
 		2C6A5B5B1708495800A69935 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6A5B5A1708495800A69935 /* PhotoViewController.m */; };
 		2C6A5B631708AA7100A69935 /* watch-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C6A5B5D1708AA7100A69935 /* watch-icon.png */; };
 		2C6A5B641708AA7100A69935 /* watch-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C6A5B5E1708AA7100A69935 /* watch-icon@2x.png */; };
@@ -119,7 +129,6 @@
 		2C87C6CF16F752940090F697 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C87C6CE16F752940090F697 /* UIKit.framework */; };
 		2C87C6D116F752940090F697 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C87C6D016F752940090F697 /* Foundation.framework */; };
 		2C87C6D316F752940090F697 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C87C6D216F752940090F697 /* CoreGraphics.framework */; };
-		2C87C6D916F752940090F697 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C87C6D716F752940090F697 /* InfoPlist.strings */; };
 		2C87C6DB16F752940090F697 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C6DA16F752940090F697 /* main.m */; };
 		2C87C6DF16F752940090F697 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C6DE16F752940090F697 /* AppDelegate.m */; };
 		2C87C6E116F752940090F697 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C87C6E016F752940090F697 /* Default.png */; };
@@ -288,6 +297,24 @@
 		2C484D31171BEF8500BC59B2 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "../icon@2x.png"; sourceTree = "<group>"; };
 		2C484D33171D88A500BC59B2 /* loading-badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading-badge@2x.png"; sourceTree = "<group>"; };
 		2C484D35171D89A700BC59B2 /* loading-badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading-badge.png"; sourceTree = "<group>"; };
+		2C5A0CC1171FF27500DE1D4E /* HudView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HudView.h; sourceTree = "<group>"; };
+		2C5A0CC2171FF27600DE1D4E /* HudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HudView.m; sourceTree = "<group>"; };
+		2C5A0CC5172014EA00DE1D4E /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		2C5A0CC6172014EA00DE1D4E /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		2C5A0CC7172014EA00DE1D4E /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		2C5A0CC8172014EA00DE1D4E /* GAITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransaction.h; sourceTree = "<group>"; };
+		2C5A0CC9172014EA00DE1D4E /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransactionItem.h; sourceTree = "<group>"; };
+		2C5A0CCA1720153300DE1D4E /* libGoogleAnalytics_debug.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics_debug.a; sourceTree = "<group>"; };
+		2C5A0CCB1720153300DE1D4E /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
+		2C5A0CCE1720156900DE1D4E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2C5A0CD0172047A600DE1D4E /* Skoda-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Skoda-Info.plist"; sourceTree = "<group>"; };
+		2C5A0CD1172047A600DE1D4E /* Skoda-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Skoda-Prefix.pch"; sourceTree = "<group>"; };
+		2C5A0CD71720502900DE1D4E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		2C5A0CD91720504200DE1D4E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		2C5A0CDB1720505D00DE1D4E /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		2C5A0CDD1721424500DE1D4E /* MobileAppTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MobileAppTracker.framework; sourceTree = "<group>"; };
+		2C5A0CDF17215C5700DE1D4E /* camera-thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-thumb.png"; sourceTree = "<group>"; };
+		2C5A0CE017215C5700DE1D4E /* camera-thumb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-thumb@2x.png"; sourceTree = "<group>"; };
 		2C6A5B581708431500A69935 /* api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = api.h; sourceTree = "<group>"; };
 		2C6A5B591708495800A69935 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
 		2C6A5B5A1708495800A69935 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
@@ -361,14 +388,12 @@
 		2C6FB0B41705BA0000D2B64C /* PersonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonModel.m; sourceTree = "<group>"; };
 		2C6FB0B61705BF0800D2B64C /* person-border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "person-border.png"; sourceTree = "<group>"; };
 		2C6FB0B71705BF0800D2B64C /* person-border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "person-border@2x.png"; sourceTree = "<group>"; };
-		2C87C6CB16F752940090F697 /* Skoda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Skoda.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C87C6CB16F752940090F697 /* Бородища.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Бородища.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C87C6CE16F752940090F697 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2C87C6D016F752940090F697 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C87C6D216F752940090F697 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		2C87C6D616F752940090F697 /* Skoda-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Skoda-Info.plist"; sourceTree = "<group>"; };
 		2C87C6D816F752940090F697 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2C87C6DA16F752940090F697 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		2C87C6DC16F752940090F697 /* Skoda-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Skoda-Prefix.pch"; sourceTree = "<group>"; };
 		2C87C6DD16F752940090F697 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2C87C6DE16F752940090F697 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2C87C6E016F752940090F697 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -474,6 +499,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C5A0CDC1720505E00DE1D4E /* AdSupport.framework in Frameworks */,
+				2C5A0CDA1720504200DE1D4E /* MobileCoreServices.framework in Frameworks */,
+				2C5A0CD81720502900DE1D4E /* CoreTelephony.framework in Frameworks */,
+				2C5A0CCF1720156900DE1D4E /* CoreData.framework in Frameworks */,
 				2C12CE5E17032D60008B637A /* QuartzCore.framework in Frameworks */,
 				2C1DA22016FF6DFE00A0330E /* Security.framework in Frameworks */,
 				2C1DA21E16FF6DF100A0330E /* SystemConfiguration.framework in Frameworks */,
@@ -483,6 +512,9 @@
 				2C87C6CF16F752940090F697 /* UIKit.framework in Frameworks */,
 				2C87C6D116F752940090F697 /* Foundation.framework in Frameworks */,
 				2C87C6D316F752940090F697 /* CoreGraphics.framework in Frameworks */,
+				2C5A0CCC1720153300DE1D4E /* libGoogleAnalytics_debug.a in Frameworks */,
+				2C5A0CCD1720153400DE1D4E /* libGoogleAnalytics.a in Frameworks */,
+				2C5A0CDE1721424500DE1D4E /* MobileAppTracker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,6 +651,18 @@
 			name = Beards;
 			sourceTree = "<group>";
 		};
+		2C5A0CC4172014A700DE1D4E /* GAI */ = {
+			isa = PBXGroup;
+			children = (
+				2C5A0CC5172014EA00DE1D4E /* GAI.h */,
+				2C5A0CC6172014EA00DE1D4E /* GAITrackedViewController.h */,
+				2C5A0CC7172014EA00DE1D4E /* GAITracker.h */,
+				2C5A0CC8172014EA00DE1D4E /* GAITransaction.h */,
+				2C5A0CC9172014EA00DE1D4E /* GAITransactionItem.h */,
+			);
+			name = GAI;
+			sourceTree = "<group>";
+		};
 		2C6A5B57170842F500A69935 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -723,7 +767,7 @@
 		2C87C6CC16F752940090F697 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2C87C6CB16F752940090F697 /* Skoda.app */,
+				2C87C6CB16F752940090F697 /* Бородища.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -731,6 +775,13 @@
 		2C87C6CD16F752940090F697 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C5A0CCA1720153300DE1D4E /* libGoogleAnalytics_debug.a */,
+				2C5A0CCB1720153300DE1D4E /* libGoogleAnalytics.a */,
+				2C5A0CDD1721424500DE1D4E /* MobileAppTracker.framework */,
+				2C5A0CDB1720505D00DE1D4E /* AdSupport.framework */,
+				2C5A0CD91720504200DE1D4E /* MobileCoreServices.framework */,
+				2C5A0CD71720502900DE1D4E /* CoreTelephony.framework */,
+				2C5A0CCE1720156900DE1D4E /* CoreData.framework */,
 				2C12CE5D17032D60008B637A /* QuartzCore.framework */,
 				2C1DA21F16FF6DFE00A0330E /* Security.framework */,
 				2C1DA21D16FF6DF100A0330E /* SystemConfiguration.framework */,
@@ -747,6 +798,7 @@
 		2C87C6D416F752940090F697 /* Skoda */ = {
 			isa = PBXGroup;
 			children = (
+				2C5A0CC4172014A700DE1D4E /* GAI */,
 				2C92A478171E8E9F00A12942 /* Confirm */,
 				2C6A5BBC1709921E00A69935 /* MGInstagram */,
 				2C6A5B57170842F500A69935 /* API */,
@@ -772,12 +824,12 @@
 		2C87C6D516F752940090F697 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2C5A0CD0172047A600DE1D4E /* Skoda-Info.plist */,
+				2C5A0CD1172047A600DE1D4E /* Skoda-Prefix.pch */,
 				2C484D31171BEF8500BC59B2 /* icon@2x.png */,
 				2C484D2F171BEF6F00BC59B2 /* icon.png */,
-				2C87C6D616F752940090F697 /* Skoda-Info.plist */,
 				2C87C6D716F752940090F697 /* InfoPlist.strings */,
 				2C87C6DA16F752940090F697 /* main.m */,
-				2C87C6DC16F752940090F697 /* Skoda-Prefix.pch */,
 				2C87C6E016F752940090F697 /* Default.png */,
 				2C87C6E216F752940090F697 /* Default@2x.png */,
 				2C87C6E416F752940090F697 /* Default-568h@2x.png */,
@@ -815,6 +867,8 @@
 				2CDC7A7116FDFD1E00B921DF /* AssetsCell.m */,
 				2C1DA17B16FF58B800A0330E /* BeardBackgroundView.h */,
 				2C1DA17C16FF58B800A0330E /* BeardBackgroundView.m */,
+				2C5A0CC1171FF27500DE1D4E /* HudView.h */,
+				2C5A0CC2171FF27600DE1D4E /* HudView.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -822,6 +876,8 @@
 		2C87C6F816F7A6E50090F697 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				2C5A0CDF17215C5700DE1D4E /* camera-thumb.png */,
+				2C5A0CE017215C5700DE1D4E /* camera-thumb@2x.png */,
 				2C8C51E1171EC1520047AA2E /* tab-login_selected.png */,
 				2C8C51E2171EC1520047AA2E /* tab-login.png */,
 				2C8C51E3171EC1520047AA2E /* tab-login@2x.png */,
@@ -982,9 +1038,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2C87C6CA16F752940090F697 /* Skoda */ = {
+		2C87C6CA16F752940090F697 /* Бородища */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2C87C6E816F752940090F697 /* Build configuration list for PBXNativeTarget "Skoda" */;
+			buildConfigurationList = 2C87C6E816F752940090F697 /* Build configuration list for PBXNativeTarget "Бородища" */;
 			buildPhases = (
 				2C87C6C716F752940090F697 /* Sources */,
 				2C87C6C816F752940090F697 /* Frameworks */,
@@ -995,9 +1051,9 @@
 			);
 			dependencies = (
 			);
-			name = Skoda;
+			name = "Бородища";
 			productName = Skoda;
-			productReference = 2C87C6CB16F752940090F697 /* Skoda.app */;
+			productReference = 2C87C6CB16F752940090F697 /* Бородища.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1009,7 +1065,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Дмитрий Куртеев";
 			};
-			buildConfigurationList = 2C87C6C616F752940090F697 /* Build configuration list for PBXProject "Skoda" */;
+			buildConfigurationList = 2C87C6C616F752940090F697 /* Build configuration list for PBXProject "Бородища" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1021,7 +1077,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2C87C6CA16F752940090F697 /* Skoda */,
+				2C87C6CA16F752940090F697 /* Бородища */,
 			);
 		};
 /* End PBXProject section */
@@ -1031,7 +1087,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C87C6D916F752940090F697 /* InfoPlist.strings in Resources */,
 				2C87C6E116F752940090F697 /* Default.png in Resources */,
 				2C87C6E316F752940090F697 /* Default@2x.png in Resources */,
 				2C87C6E516F752940090F697 /* Default-568h@2x.png in Resources */,
@@ -1162,6 +1217,8 @@
 				2C8C51E6171EC1520047AA2E /* tab-login.png in Resources */,
 				2C8C51E7171EC1520047AA2E /* tab-login@2x.png in Resources */,
 				2C8C51E8171EC1520047AA2E /* tab-login_selected@2x.png in Resources */,
+				2C5A0CE117215C5700DE1D4E /* camera-thumb.png in Resources */,
+				2C5A0CE217215C5700DE1D4E /* camera-thumb@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1245,6 +1302,7 @@
 				2CFA57FB17171B270052E5E4 /* InfoTableView.m in Sources */,
 				2C90023F1719C1230019FB20 /* List13ViewController.m in Sources */,
 				2C92A47B171E8F3400A12942 /* Confirm.m in Sources */,
+				2C5A0CC3171FF27600DE1D4E /* HudView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1305,7 +1363,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dmitry Kurteev (9H363NDM82)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: THE DIRECTORS LLC   (3W836ABFFT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1313,7 +1371,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "29B1DBCB-C771-47B8-BC3E-EA485BAC7740";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "10EA2D9E-1F68-4095-BC06-27AACE7D1ED5";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1322,10 +1380,18 @@
 		2C87C6E916F752940090F697 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Skoda/Skoda-Prefix.pch";
-				INFOPLIST_FILE = "Skoda/Skoda-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "$(SRCROOT)/Skoda/Skoda-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				PRODUCT_NAME = "Бородища";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1333,10 +1399,18 @@
 		2C87C6EA16F752940090F697 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Skoda/Skoda-Prefix.pch";
-				INFOPLIST_FILE = "Skoda/Skoda-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "$(SRCROOT)/Skoda/Skoda-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				PRODUCT_NAME = "Бородища";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1344,7 +1418,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2C87C6C616F752940090F697 /* Build configuration list for PBXProject "Skoda" */ = {
+		2C87C6C616F752940090F697 /* Build configuration list for PBXProject "Бородища" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C87C6E616F752940090F697 /* Debug */,
@@ -1353,7 +1427,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2C87C6E816F752940090F697 /* Build configuration list for PBXNativeTarget "Skoda" */ = {
+		2C87C6E816F752940090F697 /* Build configuration list for PBXNativeTarget "Бородища" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C87C6E916F752940090F697 /* Debug */,

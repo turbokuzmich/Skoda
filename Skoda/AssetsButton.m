@@ -35,6 +35,9 @@
 
 - (void)setup
 {
+    // clear background
+    self.backgroundColor = [UIColor clearColor];
+    
     // Change button frame
     CGRect f = self.frame;
     f.size.width = 36;

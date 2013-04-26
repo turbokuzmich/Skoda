@@ -7,10 +7,15 @@
 //
 
 #import "MBProgressHUD.h"
+#import "AuthManager.h"
+#import "Confirm.h"
 #import "ListNewViewLayout.h"
 #import "ListNewCollectionView.h"
 #import "ListNewViewCell.h"
 #import "ListNewViewController.h"
+
+#define BlinkDelay 0.2
+#define PlusCellIndex 12
 
 #pragma mark - ListNewViewController (Private)
 
@@ -21,7 +26,7 @@
 - (BOOL)isEmptyIndexPath:(NSIndexPath *)indexPath;
 - (BOOL)isMeIndexPath:(NSIndexPath *)indexPath;
 - (void)infoTableClicked:(UITapGestureRecognizer *)recognizer;
-- (void)titleClicked:(UITapGestureRecognizer *)recognizer;
+- (void)photoShouldChange;
 
 @end
 
@@ -31,14 +36,13 @@
 {
     BOOL _infoTableAppeared;
     BOOL _loaded;                   // производилась ли первоначальная загрузка?
+    BOOL _isShowingPhoto;           // сейчас показываем фото
     float _maxBackgroundOffset;     // максимальное расстояние, на которое можно проскроллить чувака
 }
 
 - (void)load
 {
     if (!_loaded) {
-        _loaded = YES;
-        
         CGRect selfViewBounds = self.naviView.bounds;
         selfViewBounds.origin.y = 43;
         selfViewBounds.size.height -= 43;
@@ -49,16 +53,18 @@
         collectionView.cellDelegate = self;
         collectionView.delegate = self;
         collectionView.dataSource = self;
-        [collectionView registerClass:[ListNewViewCell class] forCellWithReuseIdentifier:ListNewViewCellIdentifier];
+        for (int i = -24; i < 24; i++) {
+            [collectionView registerClass:[ListNewViewCell class] forCellWithReuseIdentifier:[ListNewViewCellIdentifier stringByAppendingFormat:@"%d", i]];
+        }
         [self.naviView insertSubview:collectionView atIndex:1];
         [self setCollectionView:collectionView];
         
-        self.collectionViewBackground = [[UIView alloc] init];
-        [self.collectionViewBackground setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"beard-pattern"]]];
-        [self.collectionView addSubview:self.collectionViewBackground];
-        
-        // добавляем KVO на изменение размера collectionView
-        [self.collectionView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:NULL];
+//        self.collectionViewBackground = [[UIView alloc] init];
+//        [self.collectionViewBackground setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"beard-pattern"]]];
+//        [self.collectionView addSubview:self.collectionViewBackground];
+//        
+//        // добавляем KVO на изменение размера collectionView
+//        [self.collectionView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:NULL];
         
         // первоначальная зарузка
         [self reload];
@@ -84,9 +90,14 @@
         [hud hide:YES];
         
         if (error == nil) {
-            [weakSelf.infoTable display:weakPersonManager.generalCount * 0.1];
+            [weakSelf.infoTable display:weakPersonManager.overallCount * 0.1];
             [weakSelf.collectionView hideUpperRefreshView];
             [weakSelf.collectionView reloadData];
+            
+            if (!_loaded) {
+                [weakSelf.delegate listViewControllerInitiallyLoaded];
+            }
+            _loaded = YES;
         } else {
             [[[UIAlertView alloc] initWithTitle:@"Ошибка" message:@"Ошибка загрузки" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
@@ -115,18 +126,58 @@
     _maxBackgroundOffset = imageSize.height - viewSize.height;
 }
 
+- (void)blinkPolygons
+{
+    int blinkCellCount = 5;
+    NSNumber *index;
+    BOOL unique = YES;
+    NSArray *visibleCells = [self.collectionView visibleCells];
+    NSMutableArray *blinkCells = [NSMutableArray arrayWithCapacity:blinkCellCount];
+    
+    while (blinkCells.count < blinkCellCount) {
+        index = [NSNumber numberWithInt:(rand() % visibleCells.count)];
+        unique = YES;
+        
+        for (int i = 0; i < blinkCells.count; i++) {
+            if ([(NSNumber *)[blinkCells objectAtIndex:i] isEqualToNumber:index]) {
+                unique = NO;
+                break;
+            }
+        }
+        
+        if (unique) {
+            [blinkCells addObject:index];
+        }
+    }
+    
+    for (int i = 0; i < blinkCellCount; i++) {
+        [(ListNewViewCell *)[visibleCells objectAtIndex:[[blinkCells objectAtIndex:i] intValue]] blinkWithDelay:(i * BlinkDelay)];
+    }
+}
+
+- (void)navigateTop
+{
+    if (_isShowingPhoto) {
+        [self dismissPhotoViewController];
+    } else {
+        [self.collectionView setContentOffset:CGPointMake(0, 0) animated:YES];
+    }
+}
+
 #pragma mark - PSTCollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-//    return 504;
     return [[PersonManager sharedInstance] count];
 }
 
 - (PSTCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ListNewViewLayout *layout = (ListNewViewLayout *)collectionView.collectionViewLayout;
-    ListNewViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ListNewViewCellIdentifier forIndexPath:indexPath];
+    NSInteger normalizedRow = indexPath.row < 24 ? -1 : indexPath.row % 24;
+    NSString *cellIdentifier = [ListNewViewCellIdentifier stringByAppendingFormat:@"%d", normalizedRow];
+    
+    ListNewViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     BOOL isEmpty = [self isEmptyIndexPath:indexPath];
     BOOL isMe;
@@ -134,11 +185,15 @@
     if (!isEmpty) {
         isMe = [self isMeIndexPath:indexPath];
         [cell setIsStroke:isMe];
+        cell.hidden = NO;
+        cell.backgroundMode = normalizedRow > -1 ?ListNewViewCellBackgroundModeCenter : ListNewViewCellBackgroundModeOff;
+        [cell setColor:[layout polygonColorForCellAtIndexPath:indexPath]];
+        [cell setPolygonVertices:[layout polygonVerticesForCellAtIndexPath:indexPath]];
+    } else {
+        cell.hidden = YES;
     }
     
-    [cell setColor:[layout polygonColorForCellAtIndexPath:indexPath]];
-    [cell setPolygonVertices:[layout polygonVerticesForCellAtIndexPath:indexPath]];
-    [cell redrawPolygon];
+    [cell setIsPlus:(indexPath.row == PlusCellIndex)];
     
     return cell;
 }
@@ -171,6 +226,15 @@
             [self reload];
         }
     }
+    
+    if (!decelerate) {
+        [self blinkPolygons];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self blinkPolygons];
 }
 
 #pragma mark - CellViewDelegate
@@ -180,15 +244,20 @@
     ListNewViewCell *clickedCell = (ListNewViewCell *)cell;
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     
+//    NSInteger normalizedRow = indexPath.row < 24 ? -1 : indexPath.row % 24;
+//    NSString *cellIdentifier = [ListNewViewCellIdentifier stringByAppendingFormat:@"%d", normalizedRow];
+
+//    NSLog(@"TAPPED ON %@ %@", indexPath, cellIdentifier);
+    
     if ([self isSpecialIndexPath:indexPath]) {
-        [self.delegate listViewControllerShouldChange];
+        [self photoShouldChange];
     } else if ([self isEmptyIndexPath:indexPath]) {
         // ничего не делаем o_O
     } else if ([self isMeIndexPath:indexPath]) {
         [self.delegate listViewControllerMeSelected];
     } else {
         if (!_photoViewController) {
-            self.photoViewController = [PhotoViewController sharedInstance];
+            self.photoViewController = [[UIStoryboard storyboardWithName:@"UI" bundle:nil] instantiateViewControllerWithIdentifier:@"PhotoViewController"];
         }
         
         [self.photoViewController setIsBackButtonHidden:NO];
@@ -213,6 +282,7 @@
             [self.naviView setFrame:selfViewRect];
         } completion:^(BOOL finished) {
             [self.photoViewController didMoveToParentViewController:self];
+            _isShowingPhoto = YES;
         }];
     }
 }
@@ -232,6 +302,8 @@
         selfViewFrame.origin.x = 0;
         [self.naviView setFrame:selfViewFrame];
     } completion:^(BOOL finished) {
+        _isShowingPhoto = NO;
+        
         [self.photoViewController.view removeFromSuperview];
         [self.photoViewController removeFromParentViewController];
     }];
@@ -250,6 +322,8 @@
         selfViewFrame.origin.x = 0;
         [self.naviView setFrame:selfViewFrame];
     } completion:^(BOOL finished) {
+        _isShowingPhoto = NO;
+        
         [self.photoViewController.view removeFromSuperview];
         [self.photoViewController removeFromParentViewController];
         [self.delegate listViewControllerPresentedPhotoViewControllerShouldChange];
@@ -269,6 +343,8 @@
         selfViewFrame.origin.x = 0;
         [self.naviView setFrame:selfViewFrame];
     } completion:^(BOOL finished) {
+        _isShowingPhoto = NO;
+        
         [self.photoViewController.view removeFromSuperview];
         [self.photoViewController removeFromParentViewController];
         [self.delegate listViewControlelrPresentedPhotoViewControllerDidDelete];
@@ -290,6 +366,9 @@
 {
     [super viewDidLoad];
     
+    // gai
+    self.trackedViewName = @"Бородища";
+    
     // размеры бекграунда
     self.backgroundScrollView.contentSize = self.backgroundImageView.frame.size;
     
@@ -301,7 +380,7 @@
     [self.infoTable addGestureRecognizer:tapRecognizer];
     
     // щелк по заголовку
-    UITapGestureRecognizer *titleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleClicked:)];
+    UITapGestureRecognizer *titleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navigateTop)];
     [[self.titleLabel superview] addGestureRecognizer:titleTapRecognizer];
 }
 
@@ -340,6 +419,7 @@
 
 - (void)setup
 {
+    _isShowingPhoto = NO;
     _infoTableAppeared = NO;
     _loaded = NO;
 }
@@ -361,12 +441,21 @@
 
 - (void)infoTableClicked:(UITapGestureRecognizer *)recognizer
 {
-    [self.delegate listViewControllerShouldChange];
+    [self photoShouldChange];
 }
 
-- (void)titleClicked:(UITapGestureRecognizer *)recognizer
+- (void)photoShouldChange
 {
-    [self.collectionView setContentOffset:CGPointMake(0, 0) animated:YES];
+    if ([[AuthManager instance] isBeard]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Новое фото" message:@"У вас уже есть фотография. Хотите заменить ее на новую?" delegate:nil cancelButtonTitle:@"Нет" otherButtonTitles:@"Да", nil];
+        [Confirm showAlertView:alert withCallback:^(NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [self.delegate listViewControllerShouldChange];
+            }
+        }];
+    } else {
+        [self.delegate listViewControllerShouldChange];
+    }
 }
 
 @end

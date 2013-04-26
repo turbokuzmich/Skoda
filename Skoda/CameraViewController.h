@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAI.h"
+#import "MKNetworkKit/MKNetworkKit.h"
+#import "HudView.h"
 #import "TopBar.h"
 #import "CaptureSessionManager.h"
 #import "AssetsButton.h"
@@ -15,7 +18,7 @@
 @protocol CameraViewControllerDelegate <NSObject>
 
 - (void)dismissCameraViewController;
-- (void)dismissCameraViewControllerAndRefresh;
+- (void)dismissCameraViewControllerAndShowMe;
 
 @end
 
@@ -24,11 +27,12 @@ typedef enum {
     CameraViewControllerStatePhoto
 } CameraViewControllerState;
 
-@interface CameraViewController : UIViewController <UIScrollViewDelegate, AuthControllerDelegate>
+@interface CameraViewController : GAITrackedViewController <UIScrollViewDelegate, AuthControllerDelegate>
 {
     CameraViewControllerState _currentState;
 }
 
+@property (strong, nonatomic) IBOutlet HudView *hudView;
 @property (strong, nonatomic) IBOutlet UIScrollView *beardsTopScrollView;
 @property (strong, nonatomic) IBOutlet UIScrollView *beardsBottomScrollView;
 @property (strong, nonatomic) IBOutlet UIView *beardsBottomView;
@@ -42,6 +46,7 @@ typedef enum {
 @property (strong, nonatomic) IBOutlet AssetsButton *assetsButton;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong) CaptureSessionManager *captureSessionManager;
+@property (strong, nonatomic) MKNetworkEngine *engine;
 
 @property (weak, nonatomic) id <CameraViewControllerDelegate> delegate;
 

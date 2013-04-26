@@ -20,7 +20,7 @@ static NSString * const ErrorDomain = @"PersonManagerError";
 
 - (NSString *)_timestamp;
 - (void)_startLoad;
-- (void)_loadEnded:(NSError **)error;
+- (BOOL)_loadEnded:(NSError **)error;
 - (void)_checkMe;
 - (void)_correctData;
 
@@ -28,6 +28,7 @@ static NSString * const ErrorDomain = @"PersonManagerError";
 
 @implementation PersonManager
 {
+    NSMutableArray *_oldData;
     NSMutableArray *_data;
 }
 
@@ -69,18 +70,30 @@ static NSString * const ErrorDomain = @"PersonManagerError";
     }
 }
 
+// количество всех чуваков, включая special и empty
 - (NSInteger)count
 {
+    if (_isLoading) {
+        return _oldData.count;
+    }
     return _data.count;
 }
 
+// количество чуваков не special и не empty
 - (NSInteger)generalCount
 {
+    NSArray *d;
+    if (_isLoading) {
+        d = _oldData;
+    } else {
+        d = _data;
+    }
+    
     int count = 0;
     PersonModel *person;
     
-    for (int i = 0; i < _data.count; i++) {
-        person = [_data objectAtIndex:i];
+    for (int i = 0; i < d.count; i++) {
+        person = [d objectAtIndex:i];
         
         if (!person.isEmpty && !person.isSpecial) count++;
     }
@@ -88,15 +101,42 @@ static NSString * const ErrorDomain = @"PersonManagerError";
     return count;
 }
 
+// общее количество фоток, загруженных на сервер
+- (NSInteger)overallCount
+{
+    if (_data.count) {
+        PersonModel *person = (PersonModel *)[_data objectAtIndex:0];
+        
+        if (!person.isSpecial && !person.isEmpty) {
+            return person.total;
+        }
+        
+        return 0;
+    }
+    
+    return 0;
+}
+
 - (NSInteger)pagesCount
 {
+    if (_isLoading) {
+        return _oldData.count / PersonsPerPage;
+    }
+    
     return _data.count / PersonsPerPage;
 }
 
 - (PersonModel *)personAtIndex:(NSInteger)pIndex
 {
-    if ([_data count] > pIndex) {
-        return (PersonModel *)[_data objectAtIndex:pIndex];
+    NSArray *d;
+    if (_isLoading) {
+        d = _oldData;
+    } else {
+        d = _data;
+    }
+    
+    if ([d count] > pIndex) {
+        return (PersonModel *)[d objectAtIndex:pIndex];
     }
     
     return nil;
@@ -104,7 +144,7 @@ static NSString * const ErrorDomain = @"PersonManagerError";
 
 - (void)reset
 {
-    _data = nil;
+    _oldData = _data;
     _data = [[NSMutableArray alloc] init];
     _isLoading = NO;
     _index = -1;
@@ -249,13 +289,14 @@ static NSString * const ErrorDomain = @"PersonManagerError";
     [engine enqueueOperation:loadOperation];
 }
 
-- (void)_loadEnded:(NSError *__autoreleasing *)error
+- (BOOL)_loadEnded:(NSError *__autoreleasing *)error
 {
     if (*error == nil) {
         if (_index == maxOffsetCount - 1) {
             _isLoading = NO;
             
             [self _correctData];
+            _oldData = nil;
             self.loadBlock(nil);
         } else {
             [self _startLoad];
@@ -265,11 +306,14 @@ static NSString * const ErrorDomain = @"PersonManagerError";
         
         if ([*error code] == PersonManagerErrorCodeFull) {
             [self _correctData];
+            _oldData = nil;
             self.loadBlock(nil);
         } else {
             self.loadBlock(error);
         }
     }
+    
+    return (*error == nil);
 }
 
 - (void)_checkMe

@@ -12,6 +12,13 @@ typedef enum {
     ListNewViewCellStateImage
 } ListNewViewCellState;
 
+typedef enum {
+    ListNewViewCellBackgroundModeOff,
+    ListNewViewCellBackgroundModeTop,
+    ListNewViewCellBackgroundModeCenter,
+    ListNewViewCellBackgroundModeBottom
+} ListNewViewCellBackgroundMode;
+
 #import "ListNewViewCellBackgroundView.h"
 #import "PSTCollectionViewCell.h"
 
@@ -22,9 +29,12 @@ typedef enum {
 @property (strong, nonatomic) UIColor *color;
 @property (strong, nonatomic) UIColor *hoverColor;
 @property (nonatomic) BOOL isStroke;
+@property (nonatomic, strong) UIImage *backgroundImage;
+@property (nonatomic) ListNewViewCellBackgroundMode backgroundMode;
 
 - (void)setPolygonVertices:(NSArray *)vertices;
-- (void)redrawPolygon;
+- (void)setIsPlus:(BOOL)plus;
 - (BOOL)pointInPolygon:(CGPoint)point;
+- (void)blinkWithDelay:(NSTimeInterval)delay;
 
 @end

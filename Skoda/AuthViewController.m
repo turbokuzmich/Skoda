@@ -148,7 +148,7 @@
         
         MKNetworkOperation *loginOperation = [[MKNetworkOperation alloc] initWithURLString:ApiAuthSiteRegisterUrl params:params httpMethod:@"POST"];
         
-        [loginOperation addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+        [loginOperation addCompletionHandler:^(MKNetworkOperation *completedOperation) {NSLog(@"%@", completedOperation.responseString);
             SparkApi *api = [SparkApi instance];
             [api parseJSON:completedOperation.responseJSON];
             
@@ -231,6 +231,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.trackedViewName = @"Авторизация";
     
     // красим в полоски
     UIColor *linedColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"lined-bg"]];
@@ -442,10 +444,18 @@
     }
     
     if (!valid) {
-        CGRect invalidLabelRect = [self.registerFormView convertRect:firstInvalidLabel.frame toView:self.registerScrollView];
-        CGPoint invalidLabelPoint = CGPointMake(0, invalidLabelRect.origin.y);
+        float maxOffset = self.registerScrollView.contentSize.height - self.registerScrollView.frame.size.height;
         
-        [self.registerScrollView setContentOffset:invalidLabelPoint animated:YES];
+        if (maxOffset > 0) {
+            CGRect invalidLabelRect = [self.registerFormView convertRect:firstInvalidLabel.frame toView:self.registerScrollView];
+            CGPoint invalidLabelPoint = CGPointMake(0, invalidLabelRect.origin.y);
+            
+            if (invalidLabelPoint.y > maxOffset) {
+                invalidLabelPoint.y = maxOffset;
+            }
+            
+            [self.registerScrollView setContentOffset:invalidLabelPoint animated:YES];
+        }
     }
     
     return valid;

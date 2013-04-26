@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAI.h"
 #import "TextField.h"
 #import "Combobox.h"
 #import "Checkbox.h"
@@ -18,7 +19,7 @@
 
 @end
 
-@interface SettingsViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate>
+@interface SettingsViewController : GAITrackedViewController <UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -43,5 +44,6 @@
 
 - (IBAction)saveButtonClicked:(id)sender;
 - (IBAction)logoutButtonClicked:(id)sender;
+- (void)navigateTop;
 
 @end

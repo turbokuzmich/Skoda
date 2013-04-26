@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAI.h"
+#import "PhotoViewController.h"
 
-@interface List13ViewController : UIViewController <UIWebViewDelegate>
+@interface List13ViewController : GAITrackedViewController <UIWebViewDelegate, PhotoViewControllerDelegate>
 
+@property (strong, nonatomic) PhotoViewController *photoViewController;
+@property (strong, nonatomic) IBOutlet UIView *webContainer;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+- (void)navigateTop;
 
 @end

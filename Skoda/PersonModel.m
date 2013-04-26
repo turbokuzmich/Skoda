@@ -48,9 +48,4 @@
     return _photo;
 }
 
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"Person #%d, special %d, empty - %d", self.ID, self.isSpecial, self.isEmpty];
-}
-
 @end

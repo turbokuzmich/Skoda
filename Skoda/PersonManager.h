@@ -31,8 +31,9 @@ typedef void (^PersonManagerLoadBlock)(NSError **error);
 + (PersonManager *)sharedInstance;
 
 - (void)load:(PersonManagerLoadBlock)complete;
-- (NSInteger)count;
+- (NSInteger)count; // количество людишек со special и empty
 - (NSInteger)generalCount; // количество людишем без special и empty
+- (NSInteger)overallCount; // общее количество загруженных фото
 - (NSInteger)pagesCount;
 - (void)reset;
 - (void)purgeModelImages;

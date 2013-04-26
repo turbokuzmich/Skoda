@@ -8,6 +8,7 @@
 
 static NSString * const ListNewViewCellIdentifier = @"ListNewViewCellIdentifier";
 
+#import "GAI.h"
 #import "PersonManager.h"
 #import "ListNewCollectionView.h"
 #import "PSTCollectionViewCommon.h"
@@ -17,6 +18,7 @@ static NSString * const ListNewViewCellIdentifier = @"ListNewViewCellIdentifier"
 
 @protocol ListViewControllerDelegate <NSObject>
 
+- (void)listViewControllerInitiallyLoaded;
 - (void)listViewControllerShouldChange;
 - (void)listViewControllerMeSelected;
 - (void)listViewControllerPresentedPhotoViewControllerShouldChange;
@@ -24,7 +26,7 @@ static NSString * const ListNewViewCellIdentifier = @"ListNewViewCellIdentifier"
 
 @end
 
-@interface ListNewViewController : UIViewController <PSTCollectionViewDataSource, PSTCollectionViewDelegate, PhotoViewControllerDelegate, CellViewProtocol>
+@interface ListNewViewController : GAITrackedViewController <PSTCollectionViewDataSource, PSTCollectionViewDelegate, PhotoViewControllerDelegate, CellViewProtocol>
 
 @property (strong, nonatomic) IBOutlet UIView *naviView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
@@ -42,5 +44,7 @@ static NSString * const ListNewViewCellIdentifier = @"ListNewViewCellIdentifier"
 - (void)reload;
 - (void)displayInfoTable;
 - (void)updateMaxBackgroundOffset;
+- (void)blinkPolygons;
+- (void)navigateTop;
 
 @end

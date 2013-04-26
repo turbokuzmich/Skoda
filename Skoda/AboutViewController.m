@@ -7,19 +7,23 @@
 //
 
 #import "api.h"
+#import "AppDelegate.h"
 #import "AboutViewController.h"
 
 #pragma mark - AboutViewController (Private)
 
 @interface AboutViewController (Private)
 
-- (void)titleClicked:(UITapGestureRecognizer *)recognizer;
-
 @end
 
 #pragma mark - AboutViewController
 
 @implementation AboutViewController
+
+- (void)navigateTop
+{
+    [(UIScrollView *)[self.webView.subviews objectAtIndex:0] setContentOffset:CGPointMake(0, 0) animated:YES];
+}
 
 #pragma mark - UIViewController
 
@@ -36,13 +40,16 @@
 {
     [super viewDidLoad];
     
+    // gai
+    self.trackedViewName = @"О проекте";
+    
     self.titleLabel.font = [UIFont fontWithName:@"Skoda Pro" size:20.0];
     
     [self.webView setAlpha:0];
     [self.activityIndicator startAnimating];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:PageAboutUrl]]];
     
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleClicked:)];
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navigateTop)];
     [[self.titleLabel superview] addGestureRecognizer:tapRecognizer];
 }
 
@@ -70,15 +77,26 @@
     }];
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        UIApplication *app = [UIApplication sharedApplication];
+        NSURL *url = [request URL];
+        
+        if ([app canOpenURL:url]) {
+            [app openURL:url];
+        }
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
 @end
 
 #pragma mark - AboutViewController (Private)
 
 @implementation AboutViewController (Private)
-
-- (void)titleClicked:(UITapGestureRecognizer *)recognizer
-{
-    [(UIScrollView *)[self.webView.subviews objectAtIndex:0] setContentOffset:CGPointMake(0, 0) animated:YES];
-}
 
 @end

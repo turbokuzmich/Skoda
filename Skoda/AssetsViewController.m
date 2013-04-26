@@ -57,11 +57,11 @@
     
     // шрифт тайтла
     self.titleLabel.font = [UIFont fontWithName:@"Skoda Pro" size:20.0];
+    self.topLabel.font = [UIFont fontWithName:@"Skoda Pro" size:18.0];
+    self.bottomLabel.font = [UIFont fontWithName:@"Skoda Pro" size:18.0];
     
     UITapGestureRecognizer *titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleClicked:)];
     [[self.titleLabel superview] addGestureRecognizer:titleTap];
-	
-    [self.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,12 +70,49 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    // получаем список фоток
+    ALAssetsFilter *photosFilter = [ALAssetsFilter allPhotos];
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    __block NSMutableArray *thumbs = [[NSMutableArray alloc] init];
+    __block NSMutableArray *paths = [[NSMutableArray alloc] init];
+    __block int numberOfPhotos = 0;
+    __block int i = 0;
+    
+    [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        if (group) {
+            [group setAssetsFilter:photosFilter];
+            numberOfPhotos = [group numberOfAssets];
+            [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                if (result) {
+                    [thumbs addObject:[UIImage imageWithCGImage:result.thumbnail]];
+                    [paths addObject:result.defaultRepresentation.url];
+                    
+                    i++;
+                    if (i == numberOfPhotos) {
+                        self.data = thumbs;
+                        self.imagePaths = paths;
+                        [self.errorView setHidden:YES];
+                        [self.collectionView reloadData];
+                    }
+                }
+            }];
+        }
+    } failureBlock:^(NSError *error) {
+        [self.errorView setHidden:NO];
+    }];
+}
+
 #pragma mark - AssetsViewController
 
 - (void)viewDidUnload
 {
     [self setBackButton:nil];
     [self setCollectionView:nil];
+    [self setErrorView:nil];
+    [self setTopLabel:nil];
+    [self setBottomLabel:nil];
     [super viewDidUnload];
 }
 
@@ -137,34 +174,7 @@
 
 - (void)setup
 {
-    // получаем список фоток
-    ALAssetsFilter *photosFilter = [ALAssetsFilter allPhotos];
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    __block NSMutableArray *thumbs = [[NSMutableArray alloc] init];
-    __block NSMutableArray *paths = [[NSMutableArray alloc] init];
-    __block int numberOfPhotos = 0;
-    __block int i = 0;
     
-    [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-        if (group) {
-            [group setAssetsFilter:photosFilter];
-            numberOfPhotos = [group numberOfAssets];
-            [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                if (result) {
-                    [thumbs addObject:[UIImage imageWithCGImage:result.thumbnail]];
-                    [paths addObject:result.defaultRepresentation.url];
-                    
-                    i++;
-                    if (i == numberOfPhotos) {
-                        self.data = thumbs;
-                        self.imagePaths = paths;
-                        [self.collectionView reloadData];
-                    }
-                }
-            }];
-        }
-    } failureBlock:^(NSError *error) {
-    }];
 }
 
 - (void)titleClicked:(UITapGestureRecognizer *)recognizer

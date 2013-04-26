@@ -9,9 +9,10 @@
 #define kPhotoShareSuccess @"PhotoShareSuccess"
 #define kPhotoShareFail @"PhotoShareFail"
 
+#import <UIKit/UIKit.h>
+#import "GAI.h"
 #import "AuthViewController.h"
 #import "PersonModel.h"
-#import <UIKit/UIKit.h>
 
 @protocol PhotoViewControllerDelegate <NSObject>
 
@@ -21,7 +22,7 @@
 
 @end
 
-@interface PhotoViewController : UIViewController <AuthControllerDelegate>
+@interface PhotoViewController : GAITrackedViewController <AuthControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
@@ -38,6 +39,7 @@
 @property (nonatomic) BOOL isBackButtonHidden;
 
 @property (strong, nonatomic) PersonModel *model;
+@property (strong, nonatomic) NSOperationQueue *photoLoadQueue;
 
 @property (weak, nonatomic) id <PhotoViewControllerDelegate> delegate;
 

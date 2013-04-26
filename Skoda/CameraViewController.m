@@ -7,11 +7,12 @@
 //
 
 #import "api.h"
+#import "SparkApi.h"
+#import "Confirm.h"
 #import "CameraViewController.h"
 #import "CaptureSessionManager.h"
 #import "AssetsViewController.h"
 #import "MBProgressHUD.h"
-#import "MKNetworkKit/MKNetworkKit.h"
 #import "BeardManager.h"
 #import "AuthManager.h"
 #import <AssetsLibrary/AssetsLibrary.h>
@@ -126,6 +127,7 @@ static inline double radians (double degrees) {
 - (void)publishSuccess;
 - (void)publish;
 - (NSString *)selectedBeardIndex;
+- (MBProgressHUD *)hud;
 
 @end
 
@@ -133,6 +135,7 @@ static inline double radians (double degrees) {
 
 @implementation CameraViewController
 {
+    BOOL _uploadInProgress;
     BOOL _cameraInitialized;
     NSMutableArray *_topBeardRects;
 }
@@ -150,9 +153,11 @@ static inline double radians (double degrees) {
 
 - (IBAction)shotButtonClicked:(UIButton *)sender
 {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    MBProgressHUD *hud = [self hud];
+    [hud setLabelText:nil];
+    [hud show:YES];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.captureSessionManager captureImage];
     });
 }
@@ -164,7 +169,14 @@ static inline double radians (double degrees) {
             [self.delegate dismissCameraViewController];
             break;
         case CameraViewControllerStatePhoto:
-            [self setCurrentState:CameraViewControllerStateCamera];
+            if (_uploadInProgress) {
+                _uploadInProgress = NO;
+                [self.engine cancelAllOperations];
+                [[self hud] hide:YES];
+                [self.delegate dismissCameraViewController];
+            } else {
+                [self setCurrentState:CameraViewControllerStateCamera];
+            }
             break;
     }
 }
@@ -229,7 +241,7 @@ static inline double radians (double degrees) {
     return self;
 }
 
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -253,8 +265,10 @@ static inline double radians (double degrees) {
             }];
         }
     } failureBlock:^(NSError *error) {
+        
     }];
     
+    self.trackedViewName = @"Камера";
     
     // красим в полоски
     UIColor *linedColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"lined-bg"]];
@@ -263,13 +277,12 @@ static inline double radians (double degrees) {
     // шрифт тайтла
     self.titleLabel.font = [UIFont fontWithName:@"Skoda Pro" size:20.0];
     
+    // хит тест для контейнера с hud
+    self.hudView.photoScrollView = self.photoScrollView;
+    
     // проверка актуальности бород
-    MBProgressHUD *hud = [MBProgressHUD HUDForView:self.view];
-    if (!hud) {
-        hud = [[MBProgressHUD alloc] initWithView:self.view];
-        [self.view addSubview:hud];
-    }
-    hud.labelText = @"Проверка бород";
+    MBProgressHUD *hud = [self hud];
+    [hud setLabelText:@"Проверка бород"];
     [hud show:YES];
     
     [[BeardManager instance] checkVersion:^(BOOL uptodate, NSError *error) {
@@ -325,7 +338,7 @@ static inline double radians (double degrees) {
     [self setBeardsTopScrollView:nil];
     [self setBeardsBottomView:nil];
     [self setTitleLabel:nil];
-    
+    [self setHudView:nil];
     [super viewDidUnload];
 }
 
@@ -357,7 +370,16 @@ static inline double radians (double degrees) {
 - (void)authControllerDidSuccess
 {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self publish];
+        if ([[AuthManager instance] isBeard]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Новое фото" message:@"У вас уже есть фотография. Хотите заменить ее на новую?" delegate:nil cancelButtonTitle:@"Нет" otherButtonTitles:@"Да", nil];
+            [Confirm showAlertView:alert withCallback:^(NSInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    [self publish];
+                }
+            }];
+        } else {
+            [self publish];
+        }
     }];
 }
 
@@ -393,7 +415,9 @@ static inline double radians (double degrees) {
     [self dismissViewControllerAnimated:YES completion:^{
         
         self.cameraView.hidden = YES;
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        MBProgressHUD *hud = [self hud];
+        [hud setLabelText:nil];
+        [hud show:YES];
         
         ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
         [lib assetForURL:assetUrl resultBlock:^(ALAsset *asset) {
@@ -440,15 +464,15 @@ static inline double radians (double degrees) {
     self.photoScrollView.zoomScale = scale;
     self.photoScrollView.contentOffset = CGPointMake(0, offsetTop);
     
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [[self hud] hide:YES];
 }
 
 - (void)publishSuccess
 {
     [[AuthManager instance] fetchSession:^(BOOL ok, NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [[self hud] hide:YES];
         
-        [self.delegate dismissCameraViewControllerAndRefresh];
+        [self.delegate dismissCameraViewControllerAndShowMe];
     }];
 }
 
@@ -482,8 +506,7 @@ static inline double radians (double degrees) {
             
             [self.beardsBottomScrollView setContentSize:CGSizeMake(beardBottomContentWidth, smallBeardSize.height)];
             
-            MBProgressHUD *hud = [MBProgressHUD HUDForView:self.view];
-            [hud hide:YES];
+            [[self hud] hide:YES];
         });
         
     });
@@ -492,6 +515,9 @@ static inline double radians (double degrees) {
 - (void)setup
 {
     _cameraInitialized = NO;
+    
+    // создаем очередь
+    self.engine = [[MKNetworkEngine alloc] initWithHostName:ApiDomain];
     
     // получаем уведомление об отснятой фотке
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageCaptured) name:kImageSuccessfullyCaptured object:nil];
@@ -509,15 +535,15 @@ static inline double radians (double degrees) {
 
 - (void)publish
 {
-    MBProgressHUD *hud = [MBProgressHUD HUDForView:self.view];
-    if (!hud) {
-        hud = [[MBProgressHUD alloc] initWithView:self.view];
-        [self.view addSubview:hud];
-    }
+    _uploadInProgress = YES;
+    
+    MBProgressHUD *hud = [self hud];
     [hud setLabelText:@"Загружаю фото"];
     [hud show:YES];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    CameraViewController __weak *weakSelf = self;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         CGFloat scale = [[UIScreen mainScreen] scale];
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                                 @"iphone",                                                                      @"data[platform]",
@@ -542,29 +568,32 @@ static inline double radians (double degrees) {
                         fileName:@"my_beard_pic"];
         
         [uploadOperation addCompletionHandler:^(MKNetworkOperation *completedOperation) {
-            NSDictionary *response = completedOperation.responseJSON;
-            NSString *status = [response objectForKey:@"status"];
+            if (_uploadInProgress) {
+                _uploadInProgress = NO;
+                
+                SparkApi *api = [SparkApi instance];
+                [api parseJSON:completedOperation.responseJSON];
+                
+                if (api.isSuccess) {
+                    [weakSelf publishSuccess];
+                } else {
+                    [hud hide:NO];
+                    
+                    [[[UIAlertView alloc] initWithTitle:@"Ошибка" message:api.errorDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                }
+            }
             
-            if ([status isEqualToString:@"success"]) {
-//                NSDictionary *data = [response objectForKey:@"data"];
-//                NSNumber *bid = [data objectForKey:@"id"];
+        } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
+            if (_uploadInProgress) {
+                _uploadInProgress = NO;
                 
-//                [[AuthManager instance] setBeardId:bid];
-                
-                [self publishSuccess];
-            } else {
                 [hud hide:NO];
                 
-                [[[UIAlertView alloc] initWithTitle:@"Ошибка" message:@"Не удалось загрузить фото на сервере" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [[[UIAlertView alloc] initWithTitle:@"Ошибка" message:@"Не удалось загрузить фото на сервер." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
-        } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
-            [hud hide:NO];
-            
-            [[[UIAlertView alloc] initWithTitle:@"Ошибка" message:@"Не удалось загрузить фото на сервер." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }];
         
-        MKNetworkEngine *engine = [[MKNetworkEngine alloc] init];
-        [engine enqueueOperation:uploadOperation];
+        [self.engine enqueueOperation:uploadOperation];
     });
 }
 
@@ -574,6 +603,17 @@ static inline double radians (double degrees) {
     
     int index = abs(self.beardsTopScrollView.contentOffset.x) / ([BeardManager instance].largeSpriteFrameSize.width / scale);
     return [NSString stringWithFormat:@"%d", index];
+}
+
+- (MBProgressHUD *)hud
+{
+    MBProgressHUD *hud = [MBProgressHUD HUDForView:self.hudView];
+    if (!hud) {
+        hud = [[MBProgressHUD alloc] initWithView:self.hudView];
+        [self.hudView addSubview:hud];
+    }
+    
+    return hud;
 }
 
 @end

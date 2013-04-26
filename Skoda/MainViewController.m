@@ -13,6 +13,7 @@
 #define SettingsTab @"SettingsTab"
 #define AboutTab @"AboutTab"
 
+#import "Confirm.h"
 #import "AuthManager.h"
 #import "MBProgressHUD.h"
 #import "MainViewController.h"
@@ -23,12 +24,14 @@ typedef void (^HideComplete)(void);
 
 @interface MainViewController (Private)
 
+- (void)start;
 - (void)setup;
 - (void)startUI;
 - (void)displayTab:(NSString *)tabName;
 - (void)_displayTab:(NSString *)tabName andComplete:(HideComplete)complete;
 - (void)authStateChanged:(NSNotification *)notification;
 - (BOOL)tabIsModal:(NSString *)tabName;
+- (void)reachabilityChanged;
 
 @end
 
@@ -36,17 +39,26 @@ typedef void (^HideComplete)(void);
 
 @implementation MainViewController
 {
+    BOOL _needsStartAfterNetworkReachable;
     NSString *_tabNameBeforeModal;
 }
 
 - (IBAction)listTabClicked:(id)sender
 {
-    [self displayTab:ListFullTab];
+    if ([_currentTab isEqualToString:ListFullTab]) {
+        [self.listViewController navigateTop];
+    } else {
+        [self displayTab:ListFullTab];
+    }
 }
 
 - (IBAction)list13TabClicked:(id)sender
 {
-    [self displayTab:List13Tab];
+    if ([_currentTab isEqualToString:List13Tab]) {
+        [self.list13ViewController navigateTop];
+    } else {
+        [self displayTab:List13Tab];
+    }
 }
 
 - (IBAction)cameraTabClicked:(id)sender
@@ -61,7 +73,11 @@ typedef void (^HideComplete)(void);
 - (IBAction)settingsTabClicked:(id)sender
 {
     if ([[AuthManager instance] isSession]) {
-        [self displayTab:SettingsTab];
+        if ([_currentTab isEqualToString:SettingsTab]) {
+            [self.settingsViewController navigateTop];
+        } else {
+            [self displayTab:SettingsTab];
+        }
     } else {
         AuthViewController *authViewController = [[UIStoryboard storyboardWithName:@"UI" bundle:nil] instantiateViewControllerWithIdentifier:@"AuthViewController"];
         [authViewController setDelegate:self];
@@ -72,7 +88,11 @@ typedef void (^HideComplete)(void);
 
 - (IBAction)aboutTabClicked:(id)sender
 {
-    [self displayTab:AboutTab];
+    if ([_currentTab isEqualToString:AboutTab]) {
+        [self.aboutViewController navigateTop];
+    } else {
+        [self displayTab:AboutTab];
+    }
 }
 
 #pragma mark - CameraViewControllerDelegate
@@ -86,15 +106,10 @@ typedef void (^HideComplete)(void);
     }
 }
 
-- (void)dismissCameraViewControllerAndRefresh
+- (void)dismissCameraViewControllerAndShowMe
 {
     [self.listViewController reload];
-    
-    if (_tabNameBeforeModal) {
-        [self displayTab:_tabNameBeforeModal];
-    } else {
-        [self displayTab:ListFullTab];
-    }
+    [self displayTab:MyBeardTab];
 }
 
 #pragma mark - PhotoViewControllerDelegate
@@ -123,6 +138,22 @@ typedef void (^HideComplete)(void);
 }
 
 #pragma mark - ListViewControllerDelegate
+
+- (void)listViewControllerInitiallyLoaded
+{
+    [UIView animateWithDuration:0.4 delay:2.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        CGRect tabsViewRect = self.tabsView.frame;
+        tabsViewRect.origin.y -= tabsViewRect.size.height;
+        
+        self.containerView.alpha = 1;
+        self.tabsView.frame = tabsViewRect;
+    } completion:^(BOOL finished) {
+        [self setLoaderViewImage:nil];
+        [self setLoaderViewActivity:nil];
+        [self.listViewController displayInfoTable];
+        [self.listViewController blinkPolygons];
+    }];
+}
 
 - (void)listViewControllerShouldChange
 {
@@ -196,11 +227,6 @@ typedef void (^HideComplete)(void);
     [self.loaderViewActivity setAnimationDuration:0.4];
     [self.loaderViewActivity startAnimating];
     
-    // fetch saved user session id and update UI
-    [[AuthManager instance] restore];
-//    [[AuthManager instance] logout];
-//    [self authStateChanged:nil];
-    
     // tabs view background
     self.tabsView.backgroundColor = [UIColor clearColor];
     self.tabsView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tab-background"]];
@@ -221,37 +247,39 @@ typedef void (^HideComplete)(void);
     self.cameraButton.iconSpecial = [UIImage imageNamed:@"tab-camera_special"];
     self.cameraButton.special = YES;
     
-    self.settingsButton.tabText = @"Войти";
-    self.settingsButton.iconNormal = [UIImage imageNamed:@"tab-settings"];
-    self.settingsButton.iconSelected = [UIImage imageNamed:@"tab-settings_selected"];
+    if ([[AuthManager instance] isSession]) {
+        self.settingsButton.tabText = @"Настройки";
+        self.settingsButton.iconNormal = [UIImage imageNamed:@"tab-settings"];
+        self.settingsButton.iconSelected = [UIImage imageNamed:@"tab-settings_selected"];
+    } else {
+        self.settingsButton.tabText = @"Войти";
+        self.settingsButton.iconNormal = [UIImage imageNamed:@"tab-login"];
+        self.settingsButton.iconSelected = [UIImage imageNamed:@"tab-login_selected"];
+    }
     
     self.aboutButton.labelView.text = @"О проекте";
     self.aboutButton.iconNormal = [UIImage imageNamed:@"tab-about"];
     self.aboutButton.iconSelected = [UIImage imageNamed:@"tab-about_selected"];
 
-    [[AuthManager instance] fetchSession:^(BOOL ok, NSError *error) {
-        if (error) {
-            [[[UIAlertView alloc] initWithTitle:@"Ошибка" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        } else {
-            [self startUI];
-            
-            [UIView animateWithDuration:0.4 delay:2.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                CGRect tabsViewRect = self.tabsView.frame;
-                tabsViewRect.origin.y -= tabsViewRect.size.height;
+    // проверка доступности интернета
+    if ([self.reachability currentReachabilityStatus] == NotReachable) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Интернет" message:@"Для работы приложения требуется доступ в Интернет." delegate:nil cancelButtonTitle:@"Отмена" otherButtonTitles:@"OK", nil];
+        [Confirm showAlertView:alert withCallback:^(NSInteger buttonIndex) {
+            if (buttonIndex) {
+                _needsStartAfterNetworkReachable = YES;
+            } else {
                 
-                self.containerView.alpha = 1;
-                self.tabsView.frame = tabsViewRect;
-            } completion:^(BOOL finished) {
-                [self setLoaderViewImage:nil];
-                [self setLoaderViewActivity:nil];
-                [self.listViewController displayInfoTable];
-            }];
-        }
-    }];
+            }
+        }];
+    } else {
+        [self start];
+    }
 }
 
 - (void)didReceiveMemoryWarning
 {
+    NSLog(@"mem wargning");
+    
     if (self.currentController != self.listViewController) {
         self.listViewController = nil;
     }
@@ -301,6 +329,12 @@ typedef void (^HideComplete)(void);
 
 - (void)setup
 {
+    // подписываемся на события Reachability
+    _needsStartAfterNetworkReachable = NO;
+    [self setReachability:[Reachability reachabilityForInternetConnection]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged) name:kReachabilityChangedNotification object:nil];
+    [self.reachability startNotifier];
+    
     // подписываемся на события из AuthManager
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authStateChanged:) name:kAuthManagerLoginSuccess object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authStateChanged:) name:kAuthManagerLoginFail object:nil];
@@ -411,7 +445,7 @@ typedef void (^HideComplete)(void);
     
     if ([tabName isEqualToString:MyBeardTab]) {
         if (self.myBeardViewController == nil) {
-            self.myBeardViewController = [PhotoViewController sharedInstance];
+            self.myBeardViewController = [[UIStoryboard storyboardWithName:@"UI" bundle:nil] instantiateViewControllerWithIdentifier:@"PhotoViewController"];
         }
         
         [self.myBeardViewController setDelegate:self];
@@ -534,6 +568,34 @@ typedef void (^HideComplete)(void);
     ) {
         [self.myBeardViewController clearPhoto];
     }
+}
+
+- (void)reachabilityChanged
+{
+    NetworkStatus status = [self.reachability currentReachabilityStatus];
+    
+    if (status == NotReachable) {
+        NSLog(@"not");
+    } else {
+        NSLog(@"ok");
+        
+        if (_needsStartAfterNetworkReachable) {
+            [self start];
+        }
+    }
+}
+
+- (void)start
+{
+    // fetch saved user session id and update UI
+    [[AuthManager instance] restore];
+    [[AuthManager instance] fetchSession:^(BOOL ok, NSError *error) {
+        if (error) {
+            [[[UIAlertView alloc] initWithTitle:@"Ошибка" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        } else {
+            [self startUI];
+        }
+    }];
 }
 
 @end

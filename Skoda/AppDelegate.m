@@ -10,6 +10,10 @@
 #import "MainViewController.h"
 #import "AuthManager.h"
 
+static NSString * const TrackingId = @"UA-40239255-1";
+static NSString * const MatAdvertiserId = @"7120";
+static NSString * const MatConversionKey = @"f29cf4daec2d95c35cd614490aaca7cf";
+
 @interface AppDelegate (Private)
 
 - (NSDictionary *)parseUrl:(NSURL *)url;
@@ -22,6 +26,17 @@
 {
     // hide status bar
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    
+    // mat
+    NSError *error = nil;
+    [[MobileAppTracker sharedManager] startTrackerWithMATAdvertiserId:MatAdvertiserId MATConversionKey:MatConversionKey withError:&error];
+    [[MobileAppTracker sharedManager] trackInstall];
+    
+    // Google Analytics
+    [GAI sharedInstance].debug = YES;
+    [GAI sharedInstance].dispatchInterval = 120;
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [self setTracker:[[GAI sharedInstance] trackerWithTrackingId:TrackingId]];
     
     return YES;
 }

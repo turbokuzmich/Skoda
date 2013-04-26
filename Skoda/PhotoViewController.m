@@ -8,6 +8,7 @@
 
 #import "api.h"
 #import "SparkApi.h"
+#import "Confirm.h"
 #import "AuthManager.h"
 #import "MGInstagram/MGInstagram.h"
 #import "MBProgressHUD.h"
@@ -122,7 +123,7 @@
     UIImage *image = self.photoImageView.image;
     
     if ([MGInstagram isAppInstalled] && [MGInstagram isImageCorrectSize:image]) {
-        [MGInstagram postImage:image inView:self.view];
+        [MGInstagram postImage:image withCaption:@"#skodarussia #iceboroda" inView:self.view];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Ошибка" message:@"У вас не установлено приложение Instagram, либо размер фотографии менее 612x612 пикселей." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
@@ -151,51 +152,63 @@
 
 - (IBAction)changeButtonClicked:(id)sender
 {
-    [self.delegate photoViewControllerShouldChange];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Изменить" message:@"Вы действительно хотите обновить свое фото и обнулить рейтинг?" delegate:nil cancelButtonTitle:@"Нет" otherButtonTitles:@"Да", nil];
+    
+    [Confirm showAlertView:alert withCallback:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [self.delegate photoViewControllerShouldChange];
+        }
+    }];
 }
 
 - (IBAction)deleteButtonClicked:(id)sender
 {
-    MBProgressHUD *hud = [MBProgressHUD HUDForView:self.view];
-    if (!hud) {
-        hud = [[MBProgressHUD alloc] initWithView:self.view];
-        [self.view addSubview:hud];
-    }
-    hud.labelText = @"Удаление фото";
-    [hud show:YES];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Изменить" message:@"Вы действительно хотите удалить свое фото?" delegate:nil cancelButtonTitle:@"Нет" otherButtonTitles:@"Да", nil];
     
-    MKNetworkOperation *deleteOperation = [[MKNetworkOperation alloc] initWithURLString:ApiPhotoDeleteUrl params:nil httpMethod:@"GET"];
-    [deleteOperation addCompletionHandler:^(MKNetworkOperation *completedOperation) {
-        SparkApi *api = [SparkApi instance];
-        [api parseJSON:completedOperation.responseJSON];
-        
-        if (api.isSuccess) {
-            hud.labelText = @"Обновляю данные";
+    [Confirm showAlertView:alert withCallback:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            MBProgressHUD *hud = [MBProgressHUD HUDForView:self.view];
+            if (!hud) {
+                hud = [[MBProgressHUD alloc] initWithView:self.view];
+                [self.view addSubview:hud];
+            }
+            hud.labelText = @"Удаление фото";
+            [hud show:YES];
             
-            [[AuthManager instance] fetchSession:^(BOOL ok, NSError *error) {
+            MKNetworkOperation *deleteOperation = [[MKNetworkOperation alloc] initWithURLString:ApiPhotoDeleteUrl params:nil httpMethod:@"GET"];
+            [deleteOperation addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+                SparkApi *api = [SparkApi instance];
+                [api parseJSON:completedOperation.responseJSON];
+                
+                if (api.isSuccess) {
+                    hud.labelText = @"Обновляю данные";
+                    
+                    [[AuthManager instance] fetchSession:^(BOOL ok, NSError *error) {
+                        [hud hide:YES];
+                        
+                        [self.delegate photoViewControllerDidDelete];
+                    }];
+                } else {
+                    [hud hide:YES];
+                    
+                    [[[UIAlertView alloc] initWithTitle:@"Ошибка" message:[api errorDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                }
+            } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
                 [hud hide:YES];
                 
-                [self.delegate photoViewControllerDidDelete];
+                [[[UIAlertView alloc] initWithTitle:@"Ошибка" message:@"Нет ответа с сервера" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }];
-        } else {
-            [hud hide:YES];
             
-            [[[UIAlertView alloc] initWithTitle:@"Ошибка" message:[api errorDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            MKNetworkEngine *engine = [[MKNetworkEngine alloc] init];
+            [engine enqueueOperation:deleteOperation];
         }
-    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
-        [hud hide:YES];
-        
-        [[[UIAlertView alloc] initWithTitle:@"Ошибка" message:@"Нет ответа с сервера" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
-    
-    MKNetworkEngine *engine = [[MKNetworkEngine alloc] init];
-    [engine enqueueOperation:deleteOperation];
 }
 
 - (void)clearPhoto
 {
     if (self.view) {
-        self.photoImageView.image = nil;
+        self.photoImageView.hidden = YES;
         _needsClearPhoto = NO;
     } else {
         _needsClearPhoto = YES;
@@ -220,11 +233,8 @@
             self.titleLabel.text = @"Борода";
             self.myButtonsContainer.hidden = YES;
             self.likeButton.hidden = NO;
-            
-//            CGRect socialContainerRect = self.socButtonsContainer.frame;
-//            socialContainerRect.origin.y += 25;
-//            self.socButtonsContainer.frame = socialContainerRect;
         }
+        
         // I've voted for this photo
         if (self.model.voted) {
             self.likeButton.enabled = NO;
@@ -232,19 +242,44 @@
             self.likeButton.enabled = YES;
         }
         
-        if (self.photoImageView.image == nil) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-                UIImage *photo = self.model.photo;
+        PhotoViewController __weak *weakSelf = self;
+        NSBlockOperation *photoLoadOperation = [[NSBlockOperation alloc] init];
+        NSBlockOperation __weak *weakPhotoLoadOperation = photoLoadOperation;
+        
+        [photoLoadOperation addExecutionBlock:^{
+            UIImage *photo = weakSelf.model.photo;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                BOOL operationIsCancelled = NO;
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.photoImageView.image = photo;
-                });
+                for (NSOperation *op in weakSelf.photoLoadQueue.operations) {
+                    if ([op isEqual:weakPhotoLoadOperation] && [op isCancelled]) {
+                        operationIsCancelled = YES;
+                        break;
+                    }
+                }
+                
+                if (!operationIsCancelled) {
+                    weakSelf.photoImageView.hidden = NO;
+                    weakSelf.photoImageView.image = photo;
+                }
             });
-        }
+        }];
+        
+        [self.photoLoadQueue addOperation:photoLoadOperation];
         
         _needsUpdate = NO;
     } else {
         _needsUpdate = YES;
+    }
+}
+
+- (void)setIsBackButtonHidden:(BOOL)isBackButtonHidden
+{
+    _isBackButtonHidden = isBackButtonHidden;
+    
+    if (self.backButton) {
+        self.backButton.hidden = _isBackButtonHidden;
     }
 }
 
@@ -298,6 +333,9 @@
 {
     [super viewDidLoad];
     
+    // gai
+    self.trackedViewName = @"Фото";
+    
     // чистим фото
     if (_needsClearPhoto) {
         [self clearPhoto];
@@ -336,7 +374,7 @@
     [self setLikeButton:nil];
     [self setSocButtonsContainer:nil];
     [self setMyButtonsContainer:nil];
-    [super viewDidUnload];NSLog(@"unload");
+    [super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -349,6 +387,11 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.photoLoadQueue cancelAllOperations];
+}
+
 @end
 
 #pragma mark - PhotoViewController (Private)
@@ -359,6 +402,9 @@
 {
     _needsUpdate = NO;
     _pendingLike = NO;
+    
+    // очередь загрузки фоток
+    self.photoLoadQueue = [[NSOperationQueue alloc] init];
     
     // событие смены айдишника бороды или разлогинивания
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkMe) name:kAuthManagerBeardIdChanged object:nil];

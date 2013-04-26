@@ -6,10 +6,11 @@
 //  Copyright (c) 2013 Дмитрий Куртеев. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+#import "GAI.h"
 #import "TextField.h"
 #import "Combobox.h"
 #import "Checkbox.h"
-#import <UIKit/UIKit.h>
 
 @protocol AuthControllerDelegate <NSObject>
 
@@ -24,7 +25,7 @@ typedef enum {
     AuthViewControllerModeRegister
 } AuthViewControllerMode;
 
-@interface AuthViewController : UIViewController <UITextFieldDelegate>
+@interface AuthViewController : GAITrackedViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *loginTitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *registerTitleLabel;

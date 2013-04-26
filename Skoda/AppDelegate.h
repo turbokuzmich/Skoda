@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MobileAppTracker/MobileAppTracker.h>
+#import "GAI.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) id<GAITracker> tracker;
 
 @end
