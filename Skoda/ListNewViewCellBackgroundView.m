@@ -107,6 +107,16 @@ static NSMutableDictionary *drawCache = nil;
         
         if (self.stroke) {
             if (self.isStrokeView) {
+                CGPoint p1 = CGPointMake([[self.vertices objectAtIndex:0] floatValue], [[self.vertices objectAtIndex:1] floatValue]);
+                CGPoint p2 = CGPointMake([[self.vertices objectAtIndex:2] floatValue], [[self.vertices objectAtIndex:3] floatValue]);
+                CGPoint p3 = CGPointMake([[self.vertices objectAtIndex:4] floatValue], [[self.vertices objectAtIndex:5] floatValue]);
+                
+                [self.stroke setFill];
+                [@"Я" drawInRect:CGRectMake((p1.x + p2.x + p3.x) / 3 - 7.5, (p1.y + p2.y + p3.y) / 3 - 7.5, 15, 15)
+                        withFont: [UIFont fontWithName: @"Skoda Pro" size: 12]
+                   lineBreakMode: UILineBreakModeWordWrap
+                       alignment: UITextAlignmentCenter];
+                
                 [self.stroke setStroke];
                 [self.polygon setLineWidth:3];
                 [self.polygon stroke];

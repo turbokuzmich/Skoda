@@ -7,12 +7,13 @@
 //
 
 #import "api.h"
-#import "PersonModel.h"
 #import "List13ViewController.h"
 
 @interface List13ViewController (Private)
 
 - (void)setup;
+- (void)didVote;
+- (void)refreshWebView;
 
 @end
 
@@ -21,11 +22,11 @@
     BOOL _isShowingPhoto;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithCoder:aDecoder];
     if (self) {
-        // Custom initialization
+        [self setup];
     }
     return self;
 }
@@ -39,12 +40,10 @@
     
     self.titleLabel.font = [UIFont fontWithName:@"Skoda Pro" size:20.0];
     
-    [self.webView setAlpha:0];
-    [self.activityIndicator startAnimating];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:PageList13Url]]];
-    
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navigateTop)];
     [[self.titleLabel superview] addGestureRecognizer:tapRecognizer];
+    
+    [self refreshWebView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,6 +54,8 @@
 
 - (void)viewDidUnload
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [self setTitleLabel:nil];
     [self setWebView:nil];
     [self setActivityIndicator:nil];
@@ -171,6 +172,21 @@
 - (void)setup
 {
     _isShowingPhoto = NO;
+    
+    // подписываемся на событие голосования, чтобы обновить TOP-13
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didVote) name:kPhotoLikedSuccess object:nil];
+}
+
+- (void)didVote
+{
+    [self refreshWebView];
+}
+
+- (void)refreshWebView
+{
+    [self.webView setAlpha:0];
+    [self.activityIndicator startAnimating];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:PageList13Url]]];
 }
 
 @end

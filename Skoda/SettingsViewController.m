@@ -149,7 +149,7 @@
     self.view.backgroundColor = linedColor;
     
     // скролл вид для регистрации
-    self.scrollView.contentSize = CGSizeMake(self.formView.bounds.size.width + 40, self.formView.bounds.size.height + 40);
+    self.scrollView.contentSize = CGSizeMake(self.formView.bounds.size.width + 40, self.formView.bounds.size.height + 80);
     
     // настраиваем комбобокс выбора пола
     self.sexBox.caption = @"Ваш пол";

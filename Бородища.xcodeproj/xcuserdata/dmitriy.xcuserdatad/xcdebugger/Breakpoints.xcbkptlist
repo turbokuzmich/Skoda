@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Skoda/CameraViewController.m"
-         timestampString = "388059347.455497"
+         timestampString = "388933366.851959"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "472"
-         endingLineNumber = "472"
+         startingLineNumber = "510"
+         endingLineNumber = "510"
          landmarkName = "-publishSuccess"
          landmarkType = "5">
       </FileBreakpoint>

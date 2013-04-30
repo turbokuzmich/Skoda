@@ -28,6 +28,7 @@
 - (void)keyboardWillShow:(NSNotification *)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;
 - (void)titleClicked:(UITapGestureRecognizer *)recognizer;
+- (void)useCaptionClicked:(UITapGestureRecognizer *)recognizer;
 
 @end
 
@@ -253,6 +254,14 @@
     
     UITapGestureRecognizer *titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleClicked:)];
     [self.registerNavi addGestureRecognizer:titleTap];
+    
+    // клики по соглашению
+    UITapGestureRecognizer *useTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(useCaptionClicked:)];
+    [self.registerUseCaption1 addGestureRecognizer:useTap];
+    [self.registerUseCaption2 addGestureRecognizer:useTap];
+    
+    // галочка пользовательского соглашения предустановлена
+    [self.registerUsageField setSelected:YES];
     
     // настраиваем комбобокс выбора пола
     self.registerSexField.caption = @"Ваш пол";
@@ -571,6 +580,11 @@
 - (void)titleClicked:(UITapGestureRecognizer *)recognizer
 {
     [self.registerScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+}
+
+- (void)useCaptionClicked:(UITapGestureRecognizer *)recognizer
+{
+    [[[UIAlertView alloc] initWithTitle:@"Пользовательское соглашение" message:@"Настоящим я выражаю свое согласие и разрешаю ООО «ФОЛЬКСВАГЕН Груп Рус» (248926, Калужская область, г. Калуга, ул. Автомобильная, д. 1.)/Филиалу ООО «ФОЛЬКСВАГЕН Груп Рус» в г. Москве (117485, г. Москва ул. Обручева д. 30/1), а также, по их поручению, третьим лицам осуществлять обработку своих персональных данных (фамилия, имя, отчество, семейное положение, количество детей, образование, сфера работы, мобильный телефоны, адрес электронной почты), включая сбор, систематизацию, накопление, хранение, уточнение, использование, распространение (в том числе трансграничную передачу), обезличивание, уничтожение персональных данных), в целях связанных с возможностью предоставления информации о товарах и услугах, к оторые потенциально могут представлять интерес, а также в целях сбора и обработки статистической информации и проведения маркетинговых исследований. Согласие на обработку персональных данных в соответствии с указанными выше условиями я предоставляю на 10 (десять) лет.Я уведомлен и согласен с тем, что указанное согласие может быть мной отозвано посредством направления письменного заявления заказным почтовым отправлением с описью вложения, либо вручено лично под роспись уполномоченному представителю «ФОЛЬКСВАГЕН Груп Рус». Я подтверждаю, что мне известна цель использования моих персональных данных и настоящим выражаю свое согласие на использование." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 }
 
 @end

@@ -119,6 +119,7 @@ static inline double radians (double degrees) {
 
 @interface CameraViewController (Private)
 
+- (void)beardsBottomScrollViewTapped:(UITapGestureRecognizer *)recognizer;
 - (void)imageCaptured;
 - (void)imageSelected;
 - (void)displayImage:(UIImage *)img;
@@ -137,6 +138,7 @@ static inline double radians (double degrees) {
 {
     BOOL _uploadInProgress;
     BOOL _cameraInitialized;
+    BOOL _beardBottomScrollViewIsTappable;
     NSMutableArray *_topBeardRects;
 }
 
@@ -285,6 +287,11 @@ static inline double radians (double degrees) {
     [hud setLabelText:@"Проверка бород"];
     [hud show:YES];
     
+    // щелк по бороде выбирает бороду
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(beardsBottomScrollViewTapped:)];
+    [self.beardsBottomView addGestureRecognizer:tap];
+    
+    
     [[BeardManager instance] checkVersion:^(BOOL uptodate, NSError *error) {
         if (error) {
             [[[UIAlertView alloc] initWithTitle:@"Ошибка" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
@@ -356,6 +363,14 @@ static inline double radians (double degrees) {
     }
 }
 
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    if ([scrollView isEqual:self.beardsBottomScrollView]) {
+        [self.beardsBottomScrollView setScrollEnabled:YES];
+        _beardBottomScrollViewIsTappable = YES;
+    }
+}
+
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     if ([scrollView isEqual:self.photoScrollView]) {
@@ -397,6 +412,29 @@ static inline double radians (double degrees) {
 #pragma mark - CameraViewController (Private)
 
 @implementation CameraViewController (Private)
+
+- (void)beardsBottomScrollViewTapped:(UITapGestureRecognizer *)recognizer
+{
+    if (_beardBottomScrollViewIsTappable) {
+        CGFloat location = [recognizer locationInView:self.beardsBottomView].x;
+        CGFloat viewWidth = self.beardsBottomScrollView.frame.size.width;
+        CGFloat viewContentWidth = self.beardsBottomScrollView.contentSize.width;
+        CGFloat offset = self.beardsBottomScrollView.contentOffset.x;
+        
+        if (location >= 0 && location <= 100 && offset > 0) {
+            // крутим влево
+            [self.beardsBottomScrollView setContentOffset:CGPointMake(offset - viewWidth, 0) animated:YES];
+            [self.beardsBottomScrollView setScrollEnabled:NO];
+            _beardBottomScrollViewIsTappable = NO;
+        }
+        if (location >= 220 && offset + viewWidth < viewContentWidth) {
+            // крутим вправо
+            [self.beardsBottomScrollView setContentOffset:CGPointMake(offset + viewWidth, 0) animated:YES];
+            [self.beardsBottomScrollView setScrollEnabled:NO];
+            _beardBottomScrollViewIsTappable = NO;
+        }
+    }
+}
 
 - (void)imageCaptured
 {
@@ -515,6 +553,7 @@ static inline double radians (double degrees) {
 - (void)setup
 {
     _cameraInitialized = NO;
+    _beardBottomScrollViewIsTappable = YES;
     
     // создаем очередь
     self.engine = [[MKNetworkEngine alloc] initWithHostName:ApiDomain];

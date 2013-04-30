@@ -8,6 +8,8 @@
 
 #define kPhotoShareSuccess @"PhotoShareSuccess"
 #define kPhotoShareFail @"PhotoShareFail"
+#define kPhotoShareUndefined @"PhotoShareUndefined"
+#define kPhotoLikedSuccess @"PhotoLikedSuccess"
 
 #import <UIKit/UIKit.h>
 #import "GAI.h"

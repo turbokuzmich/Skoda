@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GAI.h"
 #import "PhotoViewController.h"
+#import "PersonModel.h"
 
 @interface List13ViewController : GAITrackedViewController <UIWebViewDelegate, PhotoViewControllerDelegate>
 

@@ -141,9 +141,11 @@ typedef void (^HideComplete)(void);
 
 - (void)listViewControllerInitiallyLoaded
 {
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    
     [UIView animateWithDuration:0.4 delay:2.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         CGRect tabsViewRect = self.tabsView.frame;
-        tabsViewRect.origin.y -= tabsViewRect.size.height;
+        tabsViewRect.origin.y = screenBounds.size.height - tabsViewRect.size.height;
         
         self.containerView.alpha = 1;
         self.tabsView.frame = tabsViewRect;

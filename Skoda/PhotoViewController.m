@@ -23,6 +23,7 @@
 - (void)checkMe;
 - (void)shareSuccess;
 - (void)shareFail;
+- (void)shareUndefined;
 
 @end
 
@@ -61,7 +62,7 @@
         
         MKNetworkOperation *likeOperation = [[MKNetworkOperation alloc] initWithURLString:likeUrl params:nil httpMethod:@"GET"];
         
-        [likeOperation addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+        [likeOperation addCompletionHandler:^(MKNetworkOperation *completedOperation) {NSLog(@"%@", completedOperation.responseString);
             [[MBProgressHUD HUDForView:self.view] hide:YES];
             
             SparkApi *api = [SparkApi instance];
@@ -73,6 +74,8 @@
                 self.model.voted = YES;
                 self.likeButton.enabled = NO;
                 self.likeLabel.text = [NSString stringWithFormat:@"%d", self.model.votes];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kPhotoLikedSuccess object:nil];
             } else {
                 [[[UIAlertView alloc] initWithTitle:@"Ошибка" message:api.errorDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
@@ -97,7 +100,7 @@
 - (IBAction)vkButtonClicked:(id)sender
 {
     UIApplication *app = [UIApplication sharedApplication];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%d/", ApiPersonVkLikeUrl, self.model.ID]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%d/?isme=%d", ApiPersonVkLikeUrl, self.model.ID, self.model.isMe]];
     
     if ([app canOpenURL:url]) {
         [app openURL:url];
@@ -107,7 +110,7 @@
 - (IBAction)fbButtonClicked:(id)sender
 {
     UIApplication *app = [UIApplication sharedApplication];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%d/", ApiPersonFbLikeUrl, self.model.ID]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%d/?isme=%d", ApiPersonFbLikeUrl, self.model.ID, self.model.isMe]];
     
     if ([app canOpenURL:url]) {
         [app openURL:url];
@@ -116,6 +119,12 @@
 
 - (IBAction)okButtonClicked:(id)sender
 {
+    UIApplication *app = [UIApplication sharedApplication];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%d/?isme=%d", ApiPersonOkLikeUrl, self.model.ID, self.model.isMe]];
+    
+    if ([app canOpenURL:url]) {
+        [app openURL:url];
+    }
 }
 
 - (IBAction)igButtonClicked:(id)sender
@@ -413,6 +422,7 @@
     // шаринг в соцсеточке
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shareSuccess) name:kPhotoShareSuccess object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shareFail) name:kPhotoShareFail object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shareUndefined) name:kPhotoShareUndefined object:nil];
 }
 
 - (void)shareSuccess
@@ -440,6 +450,11 @@
         self.model.isMe = NO;
         [self updateUI];
     }
+}
+
+#warning это от одноклассников приходит
+- (void)shareUndefined
+{
 }
 
 @end

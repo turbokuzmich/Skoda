@@ -100,7 +100,7 @@ static NSString * const MatConversionKey = @"f29cf4daec2d95c35cd614490aaca7cf";
     }
     if ([command isEqualToString:@"okshare"]) {
         if ([[params objectForKey:@"status"] isEqualToString:@"success"]) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kPhotoShareSuccess object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kPhotoShareUndefined object:nil];
         } else {
             [[NSNotificationCenter defaultCenter] postNotificationName:kPhotoShareFail object:nil];
         }

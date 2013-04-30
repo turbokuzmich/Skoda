@@ -14,6 +14,7 @@
 #import "CaptureSessionManager.h"
 #import "AssetsButton.h"
 #import "AuthViewController.h"
+#import "BeardBackgroundView.h"
 
 @protocol CameraViewControllerDelegate <NSObject>
 
@@ -35,7 +36,7 @@ typedef enum {
 @property (strong, nonatomic) IBOutlet HudView *hudView;
 @property (strong, nonatomic) IBOutlet UIScrollView *beardsTopScrollView;
 @property (strong, nonatomic) IBOutlet UIScrollView *beardsBottomScrollView;
-@property (strong, nonatomic) IBOutlet UIView *beardsBottomView;
+@property (strong, nonatomic) IBOutlet BeardBackgroundView *beardsBottomView;
 @property (strong, nonatomic) IBOutlet TopBar *topBar;
 @property (strong, nonatomic) IBOutlet UIView *cameraView;
 @property (strong, nonatomic) IBOutlet UIScrollView *photoScrollView;
