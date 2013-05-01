@@ -27,6 +27,10 @@
 
 - (void)display:(float)number
 {
+    if (number > 99999.9) {
+        number = 99999.9;
+    }
+    
     NSNumber *num = [NSNumber numberWithFloat:number];
     NSString *stringNumber = [num stringValue];
     NSString *correctedString;
@@ -75,13 +79,13 @@
 {
     self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"info-table"]];
     
-    self.d1 = [[UIImageView alloc] initWithFrame:CGRectMake(14.5, 110.5, 9.0, 16.5)];
-    self.d2 = [[UIImageView alloc] initWithFrame:CGRectMake(27.5, 110.5, 9.0, 16.5)];
-    self.d3 = [[UIImageView alloc] initWithFrame:CGRectMake(40.5, 110.5, 9.0, 16.5)];
-    self.d4 = [[UIImageView alloc] initWithFrame:CGRectMake(53.5, 110.5, 9.0, 16.5)];
-    self.d5 = [[UIImageView alloc] initWithFrame:CGRectMake(67.0, 110.5, 9.0, 16.5)];
-    self.d6 = [[UIImageView alloc] initWithFrame:CGRectMake(85.5, 110.5, 9.0, 16.5)];
-    self.p = [[UIImageView alloc] initWithFrame:CGRectMake(80.5, 125.5, 1.5, 1.5)];
+    self.d1 = [[UIImageView alloc] initWithFrame:CGRectMake(14.5, 56.5, 9.0, 16.5)];
+    self.d2 = [[UIImageView alloc] initWithFrame:CGRectMake(27.5, 56.5, 9.0, 16.5)];
+    self.d3 = [[UIImageView alloc] initWithFrame:CGRectMake(40.5, 56.5, 9.0, 16.5)];
+    self.d4 = [[UIImageView alloc] initWithFrame:CGRectMake(53.5, 56.5, 9.0, 16.5)];
+    self.d5 = [[UIImageView alloc] initWithFrame:CGRectMake(67.0, 56.5, 9.0, 16.5)];
+    self.d6 = [[UIImageView alloc] initWithFrame:CGRectMake(85.5, 56.5, 9.0, 16.5)];
+    self.p = [[UIImageView alloc] initWithFrame:CGRectMake(80.5, 71.5, 1.5, 1.5)];
     
     [self addSubview:self.d1];
     [self addSubview:self.d2];

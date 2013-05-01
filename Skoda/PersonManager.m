@@ -249,6 +249,10 @@ static NSString * const ErrorDomain = @"PersonManagerError";
                     if ([thumbnailUrl isEqual:[NSNull null]]) {
                         thumbnailUrl = @"";
                     }
+                    NSString *photoBrandedUrl = [dict objectForKey:@"img_border"];
+                    if ([photoBrandedUrl isEqual:[NSNull null]]) {
+                        photoBrandedUrl = @"";
+                    }
                     NSString *photoUrl = [dict objectForKey:@"img"];
                     if ([photoUrl isEqual:[NSNull null]]) {
                         photoUrl = @"";
@@ -256,19 +260,20 @@ static NSString * const ErrorDomain = @"PersonManagerError";
                     
                     PersonModel *newPerson = [[PersonModel alloc] init];
                     
-                    newPerson.isSpecial     = NO;
-                    newPerson.isEmpty       = NO;
-                    newPerson.ID            = [(NSNumber *)[dict objectForKey:@"id"] intValue];
-                    newPerson.isMe          = [[dict objectForKey:@"owner"] boolValue];
-                    newPerson.thumbnailUrl  = thumbnailUrl;
-                    newPerson.photoUrl      = photoUrl;
-                    newPerson.name          = name;
-                    newPerson.uploadedAt    = [(NSNumber *)[dict objectForKey:@"uploaded"] intValue];
-                    newPerson.place         = [(NSNumber *)[dict objectForKey:@"place"] intValue];
-                    newPerson.views         = [(NSNumber *)[dict objectForKey:@"views"] intValue];
-                    newPerson.votes         = [(NSNumber *)[dict objectForKey:@"votes"] intValue];
-                    newPerson.voted         = [[dict objectForKey:@"voted"] boolValue];
-                    newPerson.total         = [(NSNumber *)[dict objectForKey:@"total_photos"] intValue];
+                    newPerson.isSpecial         = NO;
+                    newPerson.isEmpty           = NO;
+                    newPerson.ID                = [(NSNumber *)[dict objectForKey:@"id"] intValue];
+                    newPerson.isMe              = [[dict objectForKey:@"owner"] boolValue];
+                    newPerson.thumbnailUrl      = thumbnailUrl;
+                    newPerson.photoBrandedUrl   = photoBrandedUrl;
+                    newPerson.photoUrl          = photoUrl;
+                    newPerson.name              = name;
+                    newPerson.uploadedAt        = [(NSNumber *)[dict objectForKey:@"uploaded"] intValue];
+                    newPerson.place             = [(NSNumber *)[dict objectForKey:@"place"] intValue];
+                    newPerson.views             = [(NSNumber *)[dict objectForKey:@"views"] intValue];
+                    newPerson.votes             = [(NSNumber *)[dict objectForKey:@"votes"] intValue];
+                    newPerson.voted             = [[dict objectForKey:@"voted"] boolValue];
+                    newPerson.total             = [(NSNumber *)[dict objectForKey:@"total_photos"] intValue];
                     
                     [_data addObject:newPerson];
                 }];

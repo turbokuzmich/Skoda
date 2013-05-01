@@ -692,7 +692,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </scrollView>
                                     <view contentMode="scaleToFill" id="C7Y-Pm-n5F" userLabel="info table" customClass="InfoTableView">
-                                        <rect key="frame" x="25" y="-103" width="124" height="146"/>
+                                        <rect key="frame" x="25" y="-48" width="124" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>

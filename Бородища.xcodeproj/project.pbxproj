@@ -162,6 +162,8 @@
 		2C92A476171DB91200A12942 /* logout-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C92A474171DB91200A12942 /* logout-button.png */; };
 		2C92A477171DB91200A12942 /* logout-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C92A475171DB91200A12942 /* logout-button@2x.png */; };
 		2C92A47B171E8F3400A12942 /* Confirm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C92A47A171E8F3400A12942 /* Confirm.m */; };
+		2CAB0F651731622A009BAE81 /* refresh-view-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CAB0F631731622A009BAE81 /* refresh-view-bg.png */; };
+		2CAB0F661731622A009BAE81 /* refresh-view-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CAB0F641731622A009BAE81 /* refresh-view-bg@2x.png */; };
 		2CCE85FB170C5DA300890E1C /* tab-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CCE85F9170C5DA300890E1C /* tab-background.png */; };
 		2CCE85FC170C5DA300890E1C /* tab-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CCE85FA170C5DA300890E1C /* tab-background@2x.png */; };
 		2CCE85FF170C6EE400890E1C /* TabButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE85FE170C6EE400890E1C /* TabButton.m */; };
@@ -435,6 +437,8 @@
 		2C92A475171DB91200A12942 /* logout-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logout-button@2x.png"; sourceTree = "<group>"; };
 		2C92A479171E8F3400A12942 /* Confirm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Confirm.h; sourceTree = "<group>"; };
 		2C92A47A171E8F3400A12942 /* Confirm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Confirm.m; sourceTree = "<group>"; };
+		2CAB0F631731622A009BAE81 /* refresh-view-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh-view-bg.png"; sourceTree = "<group>"; };
+		2CAB0F641731622A009BAE81 /* refresh-view-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh-view-bg@2x.png"; sourceTree = "<group>"; };
 		2CCE85F9170C5DA300890E1C /* tab-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-background.png"; sourceTree = "<group>"; };
 		2CCE85FA170C5DA300890E1C /* tab-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-background@2x.png"; sourceTree = "<group>"; };
 		2CCE85FD170C6EE400890E1C /* TabButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabButton.h; sourceTree = "<group>"; };
@@ -879,6 +883,8 @@
 		2C87C6F816F7A6E50090F697 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				2CAB0F631731622A009BAE81 /* refresh-view-bg.png */,
+				2CAB0F641731622A009BAE81 /* refresh-view-bg@2x.png */,
 				2C5A0CDF17215C5700DE1D4E /* camera-thumb.png */,
 				2C5A0CE017215C5700DE1D4E /* camera-thumb@2x.png */,
 				2C8C51E1171EC1520047AA2E /* tab-login_selected.png */,
@@ -1223,6 +1229,8 @@
 				2C5A0CE117215C5700DE1D4E /* camera-thumb.png in Resources */,
 				2C5A0CE217215C5700DE1D4E /* camera-thumb@2x.png in Resources */,
 				2C0474BE172B45CD00419AC8 /* about in Resources */,
+				2CAB0F651731622A009BAE81 /* refresh-view-bg.png in Resources */,
+				2CAB0F661731622A009BAE81 /* refresh-view-bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

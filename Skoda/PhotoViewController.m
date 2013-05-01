@@ -149,7 +149,8 @@
     [hud show:YES];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        UIImageWriteToSavedPhotosAlbum(self.photoImageView.image, nil, nil, NULL);
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", ApiDomain, self.model.photoBrandedUrl]]]];
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, NULL);
     
         dispatch_async(dispatch_get_main_queue(), ^{
             hud.labelText = @"Фото сохранено!";

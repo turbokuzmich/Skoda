@@ -6,7 +6,9 @@
 //  Copyright (c) 2013 Дмитрий Куртеев. All rights reserved.
 //
 
-static int const ListCollectionViewUpperRefreshHeight = 100;
+static CGFloat const ListCollectionViewUpperRefreshHeight = 100.0;
+static CGFloat const ListCollectionViewUpperRefreshViewHeight = 350.0;
+static CGFloat const ListCollectionViewUpperRefreshViewLabelHeight = 30.0;
 
 #import "PersonManager.h"
 #import "ListNewViewCell.h"
@@ -43,8 +45,6 @@ static int const ListCollectionViewUpperRefreshHeight = 100;
 
 - (void)showUpperRefreshView
 {
-    [self.upperRefreshIndicatorView startAnimating];
-    
     [UIView animateWithDuration:0.2 animations:^{
         self.contentInset = UIEdgeInsetsMake(ListCollectionViewUpperRefreshHeight, 0, 0, 0);
     }];
@@ -52,8 +52,6 @@ static int const ListCollectionViewUpperRefreshHeight = 100;
 
 - (void)hideUpperRefreshView
 {
-    [self.upperRefreshIndicatorView stopAnimating];
-    
     [UIView animateWithDuration:0.2 animations:^{
         self.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     }];
@@ -118,21 +116,11 @@ static int const ListCollectionViewUpperRefreshHeight = 100;
 
 - (void)createUpperRefreshView
 {
-    UIView *refreshView = [[UIView alloc] initWithFrame:CGRectMake(0, -ListCollectionViewUpperRefreshHeight, self.bounds.size.width, ListCollectionViewUpperRefreshHeight)];
-    refreshView.backgroundColor = [UIColor lightGrayColor];
-    
-    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    activityView.frame = CGRectMake(0, 0, 20, 20);
-    activityView.center = CGPointMake(refreshView.bounds.size.width / 2, refreshView.bounds.size.height / 2);
-    activityView.hidden = YES;
-    activityView.hidesWhenStopped = YES;
-    
+    UIView *refreshView = [[UIView alloc] initWithFrame:CGRectMake(0, -ListCollectionViewUpperRefreshViewHeight, self.bounds.size.width, ListCollectionViewUpperRefreshViewHeight)];
+    [refreshView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"refresh-view-bg"]]];
     
     [self addSubview:refreshView];
-    [refreshView addSubview:activityView];
-    
-    self.upperRefreshView = refreshView;
-    self.upperRefreshIndicatorView = activityView;
+    [self setUpperRefreshView:refreshView];
 }
 
 - (void)selectCellAtPoint:(CGPoint)point

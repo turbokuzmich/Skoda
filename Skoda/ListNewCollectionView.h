@@ -20,7 +20,7 @@ static int const ListNewCollectionViewUpperRefreshTriggerHeight = 50;
 @interface ListNewCollectionView : PSTCollectionView
 
 @property (strong, nonatomic) UIView *upperRefreshView;
-@property (strong, nonatomic) UIActivityIndicatorView *upperRefreshIndicatorView;
+@property (strong, nonatomic) UIImageView *upperRefreshViewLoader;
 
 @property (weak, nonatomic) id <CellViewProtocol> cellDelegate;
 

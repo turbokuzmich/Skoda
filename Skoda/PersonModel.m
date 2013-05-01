@@ -18,6 +18,7 @@
         _ID = [[dict objectForKey:@"id"] intValue];
         _isMe = [[dict objectForKey:@"owner"] boolValue];
         _thumbnailUrl = [dict objectForKey:@"img_thumb"];
+        _photoBrandedUrl = [dict objectForKey:@"img_border"];
         _photoUrl = [dict objectForKey:@"img"];
         _name = [dict objectForKey:@"name"];
         _uploadedAt = [[dict objectForKey:@"uploaded"] intValue];

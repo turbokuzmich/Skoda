@@ -19,6 +19,8 @@
 @property (strong, nonatomic) NSString *thumbnailUrl;
 @property (strong, nonatomic) UIImage *thumbnail;
 
+@property (strong, nonatomic) NSString *photoBrandedUrl;
+
 @property (strong, nonatomic) NSString *photoUrl;
 @property (strong, nonatomic) UIImage *photo;
 

@@ -16,6 +16,7 @@
 
 #define BlinkDelay 0.2
 #define PlusCellIndex 12
+#define InfoTableY 43
 
 #pragma mark - ListNewViewController (Private)
 
@@ -112,7 +113,7 @@
         
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             CGRect infoTableFrame = self.infoTable.frame;
-            infoTableFrame.origin.y = -10;
+            infoTableFrame.origin.y = InfoTableY;
             self.infoTable.frame = infoTableFrame;
         } completion:nil];
     }
@@ -215,6 +216,18 @@
     }
     
     self.backgroundScrollView.contentOffset = offset;
+    
+    // табло с цифрами
+    CGRect infoTableFrame = [self.infoTable frame];
+    if (offset.y < 0) {
+        infoTableFrame.origin.y = InfoTableY - offset.y;
+        [self.infoTable setFrame:infoTableFrame];
+    } else {
+        if (infoTableFrame.origin.y != InfoTableY) {
+            infoTableFrame.origin.y = InfoTableY;
+            [[self infoTable] setFrame:infoTableFrame];
+        }
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
