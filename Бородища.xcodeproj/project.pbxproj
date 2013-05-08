@@ -162,6 +162,10 @@
 		2C92A476171DB91200A12942 /* logout-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C92A474171DB91200A12942 /* logout-button.png */; };
 		2C92A477171DB91200A12942 /* logout-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C92A475171DB91200A12942 /* logout-button@2x.png */; };
 		2C92A47B171E8F3400A12942 /* Confirm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C92A47A171E8F3400A12942 /* Confirm.m */; };
+		2C9544311739D79000AC24D4 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C95442D1739D79000AC24D4 /* libTestFlight.a */; };
+		2C9544321739D79000AC24D4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2C95442E1739D79000AC24D4 /* README.md */; };
+		2C9544331739D79000AC24D4 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 2C95442F1739D79000AC24D4 /* release_notes.md */; };
+		2C9544351739D82000AC24D4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C9544341739D82000AC24D4 /* libz.dylib */; };
 		2CAB0F651731622A009BAE81 /* refresh-view-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CAB0F631731622A009BAE81 /* refresh-view-bg.png */; };
 		2CAB0F661731622A009BAE81 /* refresh-view-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CAB0F641731622A009BAE81 /* refresh-view-bg@2x.png */; };
 		2CCE85FB170C5DA300890E1C /* tab-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CCE85F9170C5DA300890E1C /* tab-background.png */; };
@@ -437,6 +441,11 @@
 		2C92A475171DB91200A12942 /* logout-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logout-button@2x.png"; sourceTree = "<group>"; };
 		2C92A479171E8F3400A12942 /* Confirm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Confirm.h; sourceTree = "<group>"; };
 		2C92A47A171E8F3400A12942 /* Confirm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Confirm.m; sourceTree = "<group>"; };
+		2C95442D1739D79000AC24D4 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		2C95442E1739D79000AC24D4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		2C95442F1739D79000AC24D4 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		2C9544301739D79000AC24D4 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		2C9544341739D82000AC24D4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		2CAB0F631731622A009BAE81 /* refresh-view-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh-view-bg.png"; sourceTree = "<group>"; };
 		2CAB0F641731622A009BAE81 /* refresh-view-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh-view-bg@2x.png"; sourceTree = "<group>"; };
 		2CCE85F9170C5DA300890E1C /* tab-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-background.png"; sourceTree = "<group>"; };
@@ -505,6 +514,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9544351739D82000AC24D4 /* libz.dylib in Frameworks */,
 				2C5A0CDC1720505E00DE1D4E /* AdSupport.framework in Frameworks */,
 				2C5A0CDA1720504200DE1D4E /* MobileCoreServices.framework in Frameworks */,
 				2C5A0CD81720502900DE1D4E /* CoreTelephony.framework in Frameworks */,
@@ -521,6 +531,7 @@
 				2C5A0CCC1720153300DE1D4E /* libGoogleAnalytics_debug.a in Frameworks */,
 				2C5A0CCD1720153400DE1D4E /* libGoogleAnalytics.a in Frameworks */,
 				2C5A0CDE1721424500DE1D4E /* MobileAppTracker.framework in Frameworks */,
+				2C9544311739D79000AC24D4 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -781,6 +792,7 @@
 		2C87C6CD16F752940090F697 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C9544341739D82000AC24D4 /* libz.dylib */,
 				2C5A0CCA1720153300DE1D4E /* libGoogleAnalytics_debug.a */,
 				2C5A0CCB1720153300DE1D4E /* libGoogleAnalytics.a */,
 				2C5A0CDD1721424500DE1D4E /* MobileAppTracker.framework */,
@@ -804,6 +816,7 @@
 		2C87C6D416F752940090F697 /* Skoda */ = {
 			isa = PBXGroup;
 			children = (
+				2C95442C1739D79000AC24D4 /* testflightapp-sdk */,
 				2C0474BD172B45CD00419AC8 /* about */,
 				2C5A0CC4172014A700DE1D4E /* GAI */,
 				2C92A478171E8E9F00A12942 /* Confirm */,
@@ -1044,6 +1057,17 @@
 			name = Confirm;
 			sourceTree = "<group>";
 		};
+		2C95442C1739D79000AC24D4 /* testflightapp-sdk */ = {
+			isa = PBXGroup;
+			children = (
+				2C95442D1739D79000AC24D4 /* libTestFlight.a */,
+				2C95442E1739D79000AC24D4 /* README.md */,
+				2C95442F1739D79000AC24D4 /* release_notes.md */,
+				2C9544301739D79000AC24D4 /* TestFlight.h */,
+			);
+			path = "testflightapp-sdk";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1231,6 +1255,8 @@
 				2C0474BE172B45CD00419AC8 /* about in Resources */,
 				2CAB0F651731622A009BAE81 /* refresh-view-bg.png in Resources */,
 				2CAB0F661731622A009BAE81 /* refresh-view-bg@2x.png in Resources */,
+				2C9544321739D79000AC24D4 /* README.md in Resources */,
+				2C9544331739D79000AC24D4 /* release_notes.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1383,7 +1409,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E8BF5457-39CC-4C56-BEEC-5E85412D0206";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E8CAA001-59A2-478B-B772-671B84DE6D4A";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1402,6 +1428,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/Skoda/testflightapp-sdk\"",
 				);
 				PRODUCT_NAME = "Бородища";
 				WRAPPER_EXTENSION = app;
@@ -1421,6 +1448,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/Skoda/testflightapp-sdk\"",
 				);
 				PRODUCT_NAME = "Бородища";
 				WRAPPER_EXTENSION = app;

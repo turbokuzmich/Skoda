@@ -218,16 +218,16 @@
     self.backgroundScrollView.contentOffset = offset;
     
     // табло с цифрами
-    CGRect infoTableFrame = [self.infoTable frame];
-    if (offset.y < 0) {
-        infoTableFrame.origin.y = InfoTableY - offset.y;
-        [self.infoTable setFrame:infoTableFrame];
-    } else {
-        if (infoTableFrame.origin.y != InfoTableY) {
-            infoTableFrame.origin.y = InfoTableY;
-            [[self infoTable] setFrame:infoTableFrame];
-        }
-    }
+//    CGRect infoTableFrame = [self.infoTable frame];
+//    if (offset.y < 0) {
+//        infoTableFrame.origin.y = InfoTableY - offset.y;
+//        [self.infoTable setFrame:infoTableFrame];
+//    } else {
+//        if (infoTableFrame.origin.y != InfoTableY) {
+//            infoTableFrame.origin.y = InfoTableY;
+//            [[self infoTable] setFrame:infoTableFrame];
+//        }
+//    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate

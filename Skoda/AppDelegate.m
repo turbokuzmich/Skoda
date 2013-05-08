@@ -9,10 +9,12 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 #import "AuthManager.h"
+#import "testflightapp-sdk/TestFlight.h"
 
 static NSString * const TrackingId = @"UA-40239255-1";
 static NSString * const MatAdvertiserId = @"7120";
 static NSString * const MatConversionKey = @"f29cf4daec2d95c35cd614490aaca7cf";
+static NSString * const TestFlightAppToken = @"a0b68c8a-a87e-4dff-92a9-0de661dbb617";
 
 @interface AppDelegate (Private)
 
@@ -37,6 +39,9 @@ static NSString * const MatConversionKey = @"f29cf4daec2d95c35cd614490aaca7cf";
     [GAI sharedInstance].dispatchInterval = 120;
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     [self setTracker:[[GAI sharedInstance] trackerWithTrackingId:TrackingId]];
+    
+    // test flight app
+    [TestFlight takeOff:TestFlightAppToken];
     
     return YES;
 }

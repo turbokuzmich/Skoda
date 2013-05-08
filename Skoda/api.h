@@ -1,5 +1,5 @@
-//#define ApiDomain @"http://ice-boroda.ru"
-#define ApiDomain @"http://beard.lab.devspark.ru"
+#define ApiDomain @"http://ice-boroda.ru"
+//#define ApiDomain @"http://beard.lab.devspark.ru"
 
 // beards fetching
 #define ApiBeardManagerCheckUrl [NSString stringWithFormat:@"%@%@", ApiDomain, @"/api/data/", nil]

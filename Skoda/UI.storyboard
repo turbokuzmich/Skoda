@@ -1631,6 +1631,225 @@
         <image name="vk-share-button.png" width="41" height="41"/>
         <image name="watch-icon.png" width="29" height="19"/>
     </resources>
+    <classes>
+        <class className="AboutViewController" superclassName="GAITrackedViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AboutViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="AssetsButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AssetsButton.h"/>
+        </class>
+        <class className="AssetsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AssetsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButtonClicked:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="bottomLabel" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="errorView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="topLabel" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="AuthViewController" superclassName="GAITrackedViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AuthViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButtonClicked:"/>
+                <relationship kind="action" name="cancelButtonClicked:"/>
+                <relationship kind="action" name="facebookButtonClicked:"/>
+                <relationship kind="action" name="loginLoginButtonClicked:"/>
+                <relationship kind="action" name="loginRegisterButtonClicked:"/>
+                <relationship kind="action" name="odnoklassnikiButtonClicked:"/>
+                <relationship kind="action" name="registerRegisterButtonClicked:"/>
+                <relationship kind="action" name="vkontakteButtonClicked:"/>
+                <relationship kind="outlet" name="loginEmailCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="loginEmailField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="loginEnclosingView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="loginFormBackground" candidateClass="UIView"/>
+                <relationship kind="outlet" name="loginLoginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="loginNavi" candidateClass="UIView"/>
+                <relationship kind="outlet" name="loginPasswordCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="loginPasswordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="loginRegisterButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="loginTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="registerAgeCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="registerAgeField" candidateClass="TextField"/>
+                <relationship kind="outlet" name="registerBuyerField" candidateClass="Checkbox"/>
+                <relationship kind="outlet" name="registerCityCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="registerCityField" candidateClass="TextField"/>
+                <relationship kind="outlet" name="registerEmailCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="registerEmailField" candidateClass="TextField"/>
+                <relationship kind="outlet" name="registerEnclosingView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="registerFormView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="registerHeading1" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="registerHeading2" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="registerNameCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="registerNameField" candidateClass="TextField"/>
+                <relationship kind="outlet" name="registerNavi" candidateClass="UIView"/>
+                <relationship kind="outlet" name="registerPasswordCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="registerPasswordField" candidateClass="TextField"/>
+                <relationship kind="outlet" name="registerRegisterButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="registerRepasswordCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="registerRepasswordField" candidateClass="TextField"/>
+                <relationship kind="outlet" name="registerScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="registerSexCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="registerSexField" candidateClass="Combobox"/>
+                <relationship kind="outlet" name="registerSurnameCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="registerSurnameField" candidateClass="TextField"/>
+                <relationship kind="outlet" name="registerTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="registerUsageField" candidateClass="Checkbox"/>
+                <relationship kind="outlet" name="registerUseCaption1" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="registerUseCaption2" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="BeardBackgroundView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BeardBackgroundView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="BottomBar" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BottomBar.h"/>
+        </class>
+        <class className="CameraViewController" superclassName="GAITrackedViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CameraViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="assetsButtonClicked:" candidateClass="UIButton"/>
+                <relationship kind="action" name="backButtonClicked:" candidateClass="UIButton"/>
+                <relationship kind="action" name="pusblishButtonClicked:"/>
+                <relationship kind="action" name="rotateButtonClicked:" candidateClass="UIButton"/>
+                <relationship kind="action" name="shotButtonClicked:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="assetsButton" candidateClass="AssetsButton"/>
+                <relationship kind="outlet" name="beardsBottomScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="beardsBottomView" candidateClass="BeardBackgroundView"/>
+                <relationship kind="outlet" name="beardsTopScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="cameraView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="hudView" candidateClass="HudView"/>
+                <relationship kind="outlet" name="photoImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="photoScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="publishButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="rotateButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="shotButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="topBar" candidateClass="TopBar"/>
+            </relationships>
+        </class>
+        <class className="Checkbox" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/Checkbox.h"/>
+        </class>
+        <class className="Combobox" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/Combobox.h"/>
+        </class>
+        <class className="GAITrackedViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GAITrackedViewController.h"/>
+        </class>
+        <class className="HudView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HudView.h"/>
+        </class>
+        <class className="InfoTableView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfoTableView.h"/>
+        </class>
+        <class className="List13ViewController" superclassName="GAITrackedViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/List13ViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="webContainer" candidateClass="UIView"/>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="ListNewViewController" superclassName="GAITrackedViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ListNewViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="backgroundImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="backgroundScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="infoTable" candidateClass="InfoTableView"/>
+                <relationship kind="outlet" name="naviView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MainViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="aboutTabClicked:"/>
+                <relationship kind="action" name="cameraTabClicked:"/>
+                <relationship kind="action" name="list13TabClicked:"/>
+                <relationship kind="action" name="listTabClicked:"/>
+                <relationship kind="action" name="settingsTabClicked:"/>
+                <relationship kind="outlet" name="aboutButton" candidateClass="TabButton"/>
+                <relationship kind="outlet" name="cameraButton" candidateClass="TabButton"/>
+                <relationship kind="outlet" name="containerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="list13Button" candidateClass="TabButton"/>
+                <relationship kind="outlet" name="listFullButton" candidateClass="TabButton"/>
+                <relationship kind="outlet" name="loaderView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="loaderViewActivity" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="loaderViewImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="settingsButton" candidateClass="TabButton"/>
+                <relationship kind="outlet" name="tabsView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="PhotoViewController" superclassName="GAITrackedViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButtonClicked:"/>
+                <relationship kind="action" name="changeButtonClicked:"/>
+                <relationship kind="action" name="deleteButtonClicked:"/>
+                <relationship kind="action" name="fbButtonClicked:"/>
+                <relationship kind="action" name="igButtonClicked:"/>
+                <relationship kind="action" name="likeButtonClicked:"/>
+                <relationship kind="action" name="okButtonClicked:"/>
+                <relationship kind="action" name="saveButtonClicked:"/>
+                <relationship kind="action" name="vkButtonClicked:"/>
+                <relationship kind="outlet" name="allRatingsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="likeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="myButtonsContainer" candidateClass="UIView"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="photoImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="ratingLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="socButtonsContainer" candidateClass="UIView"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="watchLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SettingsViewController" superclassName="GAITrackedViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="logoutButtonClicked:"/>
+                <relationship kind="action" name="saveButtonClicked:"/>
+                <relationship kind="outlet" name="ageCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="ageField" candidateClass="TextField"/>
+                <relationship kind="outlet" name="buyerCheckbox" candidateClass="Checkbox"/>
+                <relationship kind="outlet" name="cityCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="cityField" candidateClass="TextField"/>
+                <relationship kind="outlet" name="emailCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="emailField" candidateClass="TextField"/>
+                <relationship kind="outlet" name="formView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="nameCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameField" candidateClass="TextField"/>
+                <relationship kind="outlet" name="saveButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="sexBox" candidateClass="Combobox"/>
+                <relationship kind="outlet" name="sexCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="surnameCaption" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="surnameField" candidateClass="TextField"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="TabButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TabButton.h"/>
+        </class>
+        <class className="TextField" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TextField.h"/>
+        </class>
+        <class className="TopBar" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TopBar.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
