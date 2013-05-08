@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2C87C6CA16F752940090F697"
                BuildableName = "&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;.app"
-               BlueprintName = "&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;"
-               ReferencedContainer = "container:&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;.xcodeproj">
+               BlueprintName = "ice-boroda"
+               ReferencedContainer = "container:ice-boroda.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C87C6CA16F752940090F697"
             BuildableName = "&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;.app"
-            BlueprintName = "&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;"
-            ReferencedContainer = "container:&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;.xcodeproj">
+            BlueprintName = "ice-boroda"
+            ReferencedContainer = "container:ice-boroda.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -53,8 +53,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C87C6CA16F752940090F697"
             BuildableName = "&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;.app"
-            BlueprintName = "&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;"
-            ReferencedContainer = "container:&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;.xcodeproj">
+            BlueprintName = "ice-boroda"
+            ReferencedContainer = "container:ice-boroda.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -71,8 +71,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C87C6CA16F752940090F697"
             BuildableName = "&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;.app"
-            BlueprintName = "&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;"
-            ReferencedContainer = "container:&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;.xcodeproj">
+            BlueprintName = "ice-boroda"
+            ReferencedContainer = "container:ice-boroda.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

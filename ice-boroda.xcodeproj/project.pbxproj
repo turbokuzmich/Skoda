@@ -396,7 +396,7 @@
 		2C6FB0B41705BA0000D2B64C /* PersonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonModel.m; sourceTree = "<group>"; };
 		2C6FB0B61705BF0800D2B64C /* person-border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "person-border.png"; sourceTree = "<group>"; };
 		2C6FB0B71705BF0800D2B64C /* person-border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "person-border@2x.png"; sourceTree = "<group>"; };
-		2C87C6CB16F752940090F697 /* Бородища.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Бородища.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C87C6CB16F752940090F697 /* ice-boroda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ice-boroda.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C87C6CE16F752940090F697 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2C87C6D016F752940090F697 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C87C6D216F752940090F697 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -784,7 +784,7 @@
 		2C87C6CC16F752940090F697 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2C87C6CB16F752940090F697 /* Бородища.app */,
+				2C87C6CB16F752940090F697 /* ice-boroda.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1071,9 +1071,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2C87C6CA16F752940090F697 /* Бородища */ = {
+		2C87C6CA16F752940090F697 /* ice-boroda */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2C87C6E816F752940090F697 /* Build configuration list for PBXNativeTarget "Бородища" */;
+			buildConfigurationList = 2C87C6E816F752940090F697 /* Build configuration list for PBXNativeTarget "ice-boroda" */;
 			buildPhases = (
 				2C87C6C716F752940090F697 /* Sources */,
 				2C87C6C816F752940090F697 /* Frameworks */,
@@ -1084,9 +1084,9 @@
 			);
 			dependencies = (
 			);
-			name = "Бородища";
+			name = "ice-boroda";
 			productName = Skoda;
-			productReference = 2C87C6CB16F752940090F697 /* Бородища.app */;
+			productReference = 2C87C6CB16F752940090F697 /* ice-boroda.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1098,7 +1098,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Дмитрий Куртеев";
 			};
-			buildConfigurationList = 2C87C6C616F752940090F697 /* Build configuration list for PBXProject "Бородища" */;
+			buildConfigurationList = 2C87C6C616F752940090F697 /* Build configuration list for PBXProject "ice-boroda" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1110,7 +1110,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2C87C6CA16F752940090F697 /* Бородища */,
+				2C87C6CA16F752940090F697 /* ice-boroda */,
 			);
 		};
 /* End PBXProject section */
@@ -1430,7 +1430,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Skoda/testflightapp-sdk\"",
 				);
-				PRODUCT_NAME = "Бородища";
+				PRODUCT_NAME = "ice-boroda";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1450,7 +1450,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Skoda/testflightapp-sdk\"",
 				);
-				PRODUCT_NAME = "Бородища";
+				PRODUCT_NAME = "ice-boroda";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1458,7 +1458,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2C87C6C616F752940090F697 /* Build configuration list for PBXProject "Бородища" */ = {
+		2C87C6C616F752940090F697 /* Build configuration list for PBXProject "ice-boroda" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C87C6E616F752940090F697 /* Debug */,
@@ -1467,7 +1467,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2C87C6E816F752940090F697 /* Build configuration list for PBXNativeTarget "Бородища" */ = {
+		2C87C6E816F752940090F697 /* Build configuration list for PBXNativeTarget "ice-boroda" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C87C6E916F752940090F697 /* Debug */,
