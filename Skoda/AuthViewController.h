@@ -25,7 +25,7 @@ typedef enum {
     AuthViewControllerModeRegister
 } AuthViewControllerMode;
 
-@interface AuthViewController : GAITrackedViewController <UITextFieldDelegate>
+@interface AuthViewController : GAITrackedViewController <UITextFieldDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *loginTitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *registerTitleLabel;

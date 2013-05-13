@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2C87C6CA16F752940090F697"
-               BuildableName = "&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;.app"
+               BuildableName = "ice-boroda.app"
                BlueprintName = "ice-boroda"
                ReferencedContainer = "container:ice-boroda.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C87C6CA16F752940090F697"
-            BuildableName = "&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;.app"
+            BuildableName = "ice-boroda.app"
             BlueprintName = "ice-boroda"
             ReferencedContainer = "container:ice-boroda.xcodeproj">
          </BuildableReference>
@@ -52,7 +52,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C87C6CA16F752940090F697"
-            BuildableName = "&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;.app"
+            BuildableName = "ice-boroda.app"
             BlueprintName = "ice-boroda"
             ReferencedContainer = "container:ice-boroda.xcodeproj">
          </BuildableReference>
@@ -70,7 +70,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2C87C6CA16F752940090F697"
-            BuildableName = "&#1041;&#1086;&#1088;&#1086;&#1076;&#1080;&#1097;&#1072;.app"
+            BuildableName = "ice-boroda.app"
             BlueprintName = "ice-boroda"
             ReferencedContainer = "container:ice-boroda.xcodeproj">
          </BuildableReference>

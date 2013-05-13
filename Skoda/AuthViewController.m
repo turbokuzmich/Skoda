@@ -248,24 +248,31 @@
     // скролл вид для регистрации
     self.registerScrollView.contentSize = CGSizeMake(self.registerFormView.bounds.size.width + 40, self.registerFormView.bounds.size.height + 80);
     
-    // ловим клик вне текстового поля, чтобы убрать фокус
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-    [self.view addGestureRecognizer:tap];
-    
-    UITapGestureRecognizer *titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleClicked:)];
-    [self.registerNavi addGestureRecognizer:titleTap];
-    
-    // клики по соглашению
-    UITapGestureRecognizer *useTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(useCaptionClicked:)];
-    [self.registerUseCaption1 addGestureRecognizer:useTap];
-    [self.registerUseCaption2 addGestureRecognizer:useTap];
-    
     // галочка пользовательского соглашения предустановлена
     [self.registerUsageField setSelected:YES];
     
     // настраиваем комбобокс выбора пола
     self.registerSexField.caption = @"Ваш пол";
     self.registerSexField.values = [NSArray arrayWithObjects:@"Мужской", @"Женский", nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // ловим клик вне текстового поля, чтобы убрать фокус
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [tap setDelegate:self];
+    [self.view addGestureRecognizer:tap];
+    
+    UITapGestureRecognizer *titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleClicked:)];
+    [titleTap setDelegate:self];
+    [self.registerNavi addGestureRecognizer:titleTap];
+    
+    // клики по соглашению
+    UITapGestureRecognizer *useTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(useCaptionClicked:)];
+    [self.registerUseCaption1 addGestureRecognizer:useTap];
+    [self.registerUseCaption2 addGestureRecognizer:useTap];
 }
 
 - (void)didReceiveMemoryWarning
@@ -338,6 +345,17 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    return YES;
+}
+
+#pragma mark - UIGestureRecognizer
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view isKindOfClass:[UIButton class]] || [touch.view isKindOfClass:[UIImageView class]]){
+        return NO;
+    }
+    
     return YES;
 }
 
@@ -527,7 +545,9 @@
 
 - (void)handleTap:(UIGestureRecognizer *)recognizer
 {
-    [_activeField resignFirstResponder];
+    if (_activeField) {
+        [_activeField resignFirstResponder];
+    }
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification
